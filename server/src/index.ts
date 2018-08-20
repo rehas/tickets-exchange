@@ -1,10 +1,13 @@
 import 'reflect-metadata'
 import { Action, BadRequestError, useKoaServer } from 'routing-controllers'
 import setupDb from './db'
-// import { verify } from './jwt'
+import { verify } from './jwt'
 import * as Koa from 'koa'
 import {Server} from 'http'
-// import {secret} from './jwt'
+import {secret} from './jwt'
+import User from './users/entity'
+import UserController from './users/controller'
+import LoginController from './login/controller';
 
 const app = new Koa()
 const server = new Server(app.callback())
@@ -13,35 +16,37 @@ const port = process.env.PORT || 4000
 useKoaServer(app, {
   cors: true,
   controllers: [
-    
+    UserController,
+    LoginController
   ],
-  // authorizationChecker: (action: Action) => {
-  //   const header: string = action.request.headers.authorization
-  //   if (header && header.startsWith('Bearer ')) {
-  //     const [ , token ] = header.split(' ')
+  authorizationChecker: (action: Action) => {
+    const header: string = action.request.headers.authorization
+    if (header && header.startsWith('Bearer ')) {
+      const [ , token ] = header.split(' ')
 
-  //     try {
-  //       return !!(token && verify(token))
-  //     }
-  //     catch (e) {
-  //       throw new BadRequestError(e)
-  //     }
-  //   }
+      try {
+        return !!(token && verify(token))
+      }
+      catch (e) {
+        throw new BadRequestError(e)
+      }
+    }
 
-  //   return false
-  // },
-  // currentUserChecker: async (action: Action) => {
-  //   const header: string = action.request.headers.authorization
-  //   if (header && header.startsWith('Bearer ')) {
-  //     const [ , token ] = header.split(' ')
+    return false
+  },
+  currentUserChecker: async (action: Action) => {
+    const header: string = action.request.headers.authorization
+    console.log(header)
+    if (header && header.startsWith('Bearer ')) {
+      const [ , token ] = header.split(' ')
       
-  //     if (token) {
-  //       const {id} = verify(token)
-  //       return User.findOneById(id)
-  //     }
-  //   }
-  //   return undefined
-  // }
+      if (token) {
+        const {id} = verify(token)
+        return User.findOneById(id)
+      }
+    }
+    return undefined
+  }
 })
 
 

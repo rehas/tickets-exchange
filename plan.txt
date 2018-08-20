@@ -15,14 +15,18 @@ PHASE 1
   + Setup Koa server with cors
   - Write down api endpoints
   - Design the DB
-    + Write down entitites
+    HERE> Write down entitites
+      + User
+      - Event
+      - Ticket
+      - Comment
     + Write down entity relations
     - Decide where to put the logic
       - Risk logic might be calculated in the backend and not put in the DB because it is dynamic
       - It might have its own api endpoint. 
-  HERE> Setup and run the DB
+  - Setup and run the DB
     + Initial Setup
-    - Add a controller for User and insert via httpie
+    + Add a controller for User and insert via httpie
 
 
 - MVP of the APP
