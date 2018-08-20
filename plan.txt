@@ -11,8 +11,8 @@ PHASE 1
   - Plan / write out the components
     - Component / Presenter
 
-- SETUP SERVER SIDE
-  - Setup Koa server with cors
+HERE> SETUP SERVER SIDE
+  + Setup Koa server with cors
   - Write down api endpoints
   - Design the DB
     - Write down entitites

@@ -1,0 +1,31 @@
+{
+  "name": "uber-ebay-mix-server",
+  "version": "1.0.0",
+  "description": "codaisseur final assignment",
+  "main": "target/index.js",
+  "scripts": {
+    "start": "nodemon .",
+    "test": "node_modules/.bin/mocha --require ts-node/register src/**/*.spec.ts",
+    "watch": "node_modules/.bin/tsc -w",
+    "compile": "node_modules/.bin/tsc -p ."
+  },
+  "dependencies": {
+    "@types/koa": "^2.0.44",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa-router": "^7.0.27",
+    "kcors": "^2.2.1",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.18.3",
+    "pg": "^7.4.1",
+    "routing-controllers": "^0.7.7",
+    "ts-node": "^5.0.1",
+    "typeorm": "0.1.19",
+    "typescript": "^2.7.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
