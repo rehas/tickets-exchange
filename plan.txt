@@ -11,16 +11,19 @@ PHASE 1
   - Plan / write out the components
     - Component / Presenter
 
-HERE> SETUP SERVER SIDE
+- SETUP SERVER SIDE
   + Setup Koa server with cors
   - Write down api endpoints
   - Design the DB
-    - Write down entitites
-    - Write down entity relations
+    + Write down entitites
+    + Write down entity relations
     - Decide where to put the logic
       - Risk logic might be calculated in the backend and not put in the DB because it is dynamic
       - It might have its own api endpoint. 
-  - Setup and run the DB
+  HERE> Setup and run the DB
+    + Initial Setup
+    - Add a controller for User and insert via httpie
+
 
 - MVP of the APP
   - User login / signup
@@ -56,5 +59,6 @@ P-1 12 As an admin I should be able to delete any comment and edit/delete any ti
 P-2 13 As a customer I want to be able to filter and search in the list of events
 P-2 14 As a customer I want to be able to sort the list of tickets on author and price 
 P-3 15 Use the Uber API to dispatch an Uber when you buy a ticket
+  - When user buys a ticket show a message. 
 16 As a mobile visitor I want to have a joyfull experience (responsive!)
 P-3 17 As a customer I want to install this as an app on my phone

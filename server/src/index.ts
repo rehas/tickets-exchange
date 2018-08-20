@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Action, BadRequestError, useKoaServer } from 'routing-controllers'
-// import setupDb from './db'
+import setupDb from './db'
 // import { verify } from './jwt'
 import * as Koa from 'koa'
 import {Server} from 'http'
@@ -50,9 +50,9 @@ useKoaServer(app, {
 
 
 
-// setupDb()
-//   .then(_ => {
+ setupDb()
+   .then(_ => {
     server.listen(port)
     console.log(`Succesfully Listening on port ${port}`)
-  // })
-  // .catch(err => console.error(err))
+  })
+  .catch(err => console.error(err))
