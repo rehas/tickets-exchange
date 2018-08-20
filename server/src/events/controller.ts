@@ -7,7 +7,7 @@ export default class EventController {
 
   @Authorized()
   @Post('/events')
-  async signup(
+  async newEvent(
     @CurrentUser() user: User,
     @Body() data: Event
   ) {
@@ -25,14 +25,14 @@ export default class EventController {
   }
 
   @Get('/events/:id([0-9]+)')
-  getUser(
+  getEvent(
     @Param('id') id: number
   ) {
     return Event.findOneById(id)
   }
 
   @Get('/events')
-  allUsers() {
+  allEvents() {
     return Event.find()
   }
 }

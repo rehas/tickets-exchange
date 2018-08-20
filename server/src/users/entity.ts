@@ -2,6 +2,8 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 't
 import { Exclude } from 'class-transformer';
 import { MinLength, IsString, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcrypt'
+import Ticket from '../tickets/entity';
+import Comment from '../comments/entity';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -35,6 +37,12 @@ export default class User extends BaseEntity {
   checkPassword(rawPassword: string): Promise<boolean> {
     return bcrypt.compare(rawPassword, this.password)
   }
+
+  @OneToMany(_=> Ticket, ticket => ticket.user)
+  tickets: Ticket[]
+  
+  @OneToMany(_=> Comment, comment => comment.user)
+  comments: Comment[]
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations

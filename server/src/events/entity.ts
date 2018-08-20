@@ -1,6 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import { Exclude } from 'class-transformer';
 import { MinLength, IsString, IsEmail, IsDate, IsDateString } from 'class-validator';
+import Ticket from '../tickets/entity';
 
 @Entity()
 export default class Event extends BaseEntity {
@@ -25,6 +26,10 @@ export default class Event extends BaseEntity {
   @Column('date', {nullable:true})
   end: string
 
+  @OneToMany(_=> Ticket, ticket=>ticket.event )
+  tickets: Ticket[]
+
+  
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   /* @OneToMany(_ => Player, player => player.user) 

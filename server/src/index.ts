@@ -4,11 +4,13 @@ import setupDb from './db'
 import { verify } from './jwt'
 import * as Koa from 'koa'
 import {Server} from 'http'
-import {secret} from './jwt'
+// import {secret} from './jwt'
 import User from './users/entity'
 import UserController from './users/controller'
 import LoginController from './login/controller';
 import EventController from './events/controller';
+import TicketController from './tickets/controller';
+import CommentController from './comments/controller';
 
 const app = new Koa()
 const server = new Server(app.callback())
@@ -19,7 +21,9 @@ useKoaServer(app, {
   controllers: [
     UserController,
     LoginController,
-    EventController
+    EventController,
+    TicketController,
+    CommentController
 
   ],
   authorizationChecker: (action: Action) => {

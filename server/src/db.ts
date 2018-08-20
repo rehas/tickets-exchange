@@ -4,6 +4,8 @@ import { NamingStrategyInterface } from 'typeorm/naming-strategy/NamingStrategyI
 import { snakeCase } from 'typeorm/util/StringUtils'
 import User from './users/entity'
 import Event from './events/entity';
+import Ticket from './tickets/entity';
+import Comment from './comments/entity';
 // import { Player, Game } from './games/entities'
 
 class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
@@ -31,7 +33,9 @@ export default () =>
     url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/uberebay',
     entities: [
       User,
-      Event
+      Event,
+      Ticket,
+      Comment
       // Player,
       // Game
     ],
