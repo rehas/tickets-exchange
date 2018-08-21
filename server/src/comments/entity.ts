@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Timestamp, ManyToOne } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Timestamp, ManyToOne } from 'typeorm'
 import { IsString} from 'class-validator';
 // import Event from '../events/entity';
 import User from '../users/entity';
@@ -17,10 +17,10 @@ export default class Comment extends BaseEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
   createdat: Timestamp
 
-  @ManyToOne(_=>User, user=> user.comments)
+  @ManyToOne(_=>User, user=> user.comments, {onDelete:"CASCADE"})
   user: User
 
-  @ManyToOne(_=> Ticket, ticket=> ticket.comments)
+  @ManyToOne(_=> Ticket, ticket=> ticket.comments, {onDelete:"CASCADE"})
   ticket: Ticket
 
 

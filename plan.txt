@@ -21,10 +21,10 @@ PHASE 1
       + Ticket
       + Comment
     - Write down controllers with (delete, patch)
-      - User
       - Event
       - Ticket
       - Comment
+      ---- User
       - Cascade delete options
 
     + Write down entity relations
