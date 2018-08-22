@@ -79,12 +79,19 @@ export default class EventController {
   async getEvent(
     @Param('id') id: number
   ) {
-    return await Event.findOneById(id)
+    return await Event.findOneById(id, {relations:["tickets", "tickets.comments"]})
   }
 
   @HttpCode(200)
   @Get('/events')
   async allEvents() {
-    return await Event.find()
+    return await Event.find(
+      {
+        relations:["tickets", "tickets.comments"],
+        order: {
+          id: "DESC"
+        }
+      }
+    )
   }
 }
