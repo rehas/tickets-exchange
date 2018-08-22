@@ -14,6 +14,8 @@ PHASE 1
     + Setup Router - BrowserRouter
     - Sign Up, Sign-In, Sign-Out
       - Create component
+        - Initialize
+        - Create Material UI Form
       - Create actions
       - Create reducers
         - Set CurrentUser
