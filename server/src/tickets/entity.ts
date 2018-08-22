@@ -30,6 +30,12 @@ export default class Ticket extends BaseEntity {
   @Column({type:'integer', nullable:true})
   boughtby: number
 
+  @Column()
+  event_id: number
+
+  @Column()
+  user_id: number
+
   @ManyToOne(_=>Event, event=> event.tickets, {onDelete:"CASCADE"})
   event: Event;
 
