@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError, Patch, Delete } from 'routing-controllers'
+import { JsonController, Post, Param, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError, Delete } from 'routing-controllers'
 import User from '../users/entity';
 import Comment from './entity';
 import Ticket from '../tickets/entity';
