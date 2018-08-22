@@ -14,19 +14,24 @@ PHASE 1
     + Setup Router - BrowserRouter
     - Sign Up, Sign-In, Sign-Out
       - Create component
-        - Initialize
-        - Create Material UI Form
+        + Initialize
+        + Create Material UI Form
       - Create actions
+        + Create logged in,
+        + Create logged out
+        + SignUp
+          + Form
+          + Action
       - Create reducers
-        - Set CurrentUser
-          -Bring CurrentUser-Tickets,
-          -Bring CurrentUser-Comments
+        + Set CurrentUser
+          + Bring CurrentUser-Tickets,
+          + Bring CurrentUser-Comments
     - Component / Presenter
-      - Login Component 
-        - In the headerBar
-        - Show logged in status
-        - Show Logout Button
-        - Show SignUp button when not logged in
+      + Login Component 
+        + In the headerBar
+        + Show logged in status
+        + Show Logout Button
+        + Show SignUp button when not logged in
       - Events Component
         - Show Upto 4 events with pages
         - EventBox Presenter
