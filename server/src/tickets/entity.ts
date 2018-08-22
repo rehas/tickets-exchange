@@ -1,6 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Timestamp, ManyToOne } from 'typeorm'
-import { Exclude } from 'class-transformer';
-import { MinLength, IsString, IsEmail, IsDate, IsDateString, IsNumber } from 'class-validator';
+// import { Exclude } from 'class-transformer';
+import { IsString, IsNumber } from 'class-validator';
 import Event from '../events/entity';
 import User from '../users/entity';
 import Comment from '../comments/entity';
@@ -30,10 +30,16 @@ export default class Ticket extends BaseEntity {
   @Column({type:'integer', nullable:true})
   boughtby: number
 
-  @ManyToOne(_=>Event, event=> event.tickets)
+  @Column()
+  event_id: number
+
+  @Column()
+  user_id: number
+
+  @ManyToOne(_=>Event, event=> event.tickets, {onDelete:"CASCADE"})
   event: Event;
 
-  @ManyToOne(_=> User, user=> user.tickets)
+  @ManyToOne(_=> User, user=> user.tickets, {onDelete:"CASCADE"})
   user: User
 
   @OneToMany(_=> Comment, comment => comment.ticket)

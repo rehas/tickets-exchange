@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Get, Body, Authorized } from 'routing-controllers'
+import { JsonController, Post, Param, Get, Body, Authorized, QueryParam, BadRequestError } from 'routing-controllers'
 import User from './entity';
 
 @JsonController()
@@ -6,13 +6,24 @@ export default class UserController {
 
   @Post('/users')
   async signup(
-    @Body() data: User
+    @Body() data: User,
+    @QueryParam('isAdmin') isBoss : boolean
   ) {
     console.log("incoming post request")
-    const {password, ...rest} = data
+    console.log(`isBoss -> ${isBoss}`)
+    console.log(data)
+    
+    const {password, email, ...rest} = data
+    if( await User.findOne({email: email })){
+      throw new BadRequestError("email already exists")
+    }
+    console.log(password)
     const entity = User.create(rest)
+    entity.email = email
     await entity.setPassword(password)
     console.log(entity)
+
+    if(isBoss) entity.isAdmin = true
 
     const user = await entity.save()
     return user

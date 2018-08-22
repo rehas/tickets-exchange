@@ -1,5 +1,5 @@
-import { JsonController, Post, Param, Get, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError } from 'routing-controllers'
-import User from './entity';
+import { JsonController, Post, Param, Get, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError, Delete, Patch } from 'routing-controllers'
+import User from '../users/entity';
 // import {getManager} from "typeorm";
 import Ticket from './entity';
 import Event from '../events/entity';
@@ -37,6 +37,55 @@ export default class TicketController {
 
     const ticket = await entity.save()
     return ticket
+  }
+
+
+  @Authorized()
+  @Delete('/tickets/:ticketid([0-9]+)')
+  async deleteTicket(
+    @Param('ticketid') ticketid : number,
+    @CurrentUser() user: User
+  ){
+    console.log("incoming delete request to tickets")
+    console.log(user)
+
+    if(!user) throw new UnauthorizedError("Please Login")
+
+    const ticket = await Ticket.findOneById(ticketid)
+
+    if(!ticket) throw new NotFoundError("Ticket Not Found") ;
+
+    if(user.isAdmin || user.id === ticket.user_id){
+      return ticket.remove()
+    }else{
+      throw new UnauthorizedError("Only admins or ticket owners can delete a ticket")
+    }
+
+  }
+
+  @Authorized()
+  @Patch('/tickets/:ticketid([0-9]+)')
+  async editTicket(
+    @Param('ticketid') ticketid : number,
+    @CurrentUser() user: User,
+    @Body() partialTicket: object
+  ){
+    console.log("incoming edit request to tickets")
+    console.log(user)
+
+    if(!user) throw new UnauthorizedError("Please Login")
+
+    const ticket = await Ticket.findOneById(ticketid)
+
+    if(!ticket) throw new NotFoundError("Ticket Not Found") ;
+
+    if(user.isAdmin || user.id === ticket.user_id){
+      Object.assign(ticket, partialTicket)
+      return await ticket.save()
+    }else{
+      throw new UnauthorizedError("Only Admins and Ticket Owners can Update Tickets")
+    }
+
   }
 
   // @Authorized()

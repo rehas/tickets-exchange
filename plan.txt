@@ -3,7 +3,7 @@
 PHASE 1
 
 - SETUP CLIENT SIDE
-  - Create-React-App
+  HERE> Create-React-App
     - Add redux
     - Redux-thunk - superagent
     - Use SignUp - Login page from game API / Ecommerce App
@@ -13,22 +13,31 @@ PHASE 1
 
 - SETUP SERVER SIDE
   + Setup Koa server with cors
-  - Write down api endpoints
-  - Design the DB
+  + Write down api endpoints
+  + Design the DB
     + Write down entitites with simple controllers (get/ create)
       + User
       + Event
       + Ticket
       + Comment
-    - Write down controllers with (delete, patch)
-      - User
-      - Event
-      - Ticket
-      - Comment
-      - Cascade delete options
+    + Write down controllers with (delete, patch)
+      + Event
+        + delete
+        + patch
+      + Ticket
+        + delete
+        + Check also after adding comments
+        + edit
+      + Comment
+        + delete
+      ---- User
+      + Cascade delete options
+        + THIS WORKED! First try adding the relevant id's to manyToOne entities, try deleting
+          + then try deleting the event to see tickets are gone as well.+ 
+        - Then try removing one of the arguments from the manytone constructor functions
 
     + Write down entity relations
-    - Decide where to put the logic
+    - :TODO>> Decide where to put the logic
       - Risk logic might be calculated in the backend and not put in the DB because it is dynamic
       - It might have its own api endpoint. 
   - Setup and run the DB
@@ -37,14 +46,14 @@ PHASE 1
 
 
 - MVP of the APP
-  - User login / signup
-    - While creating a user, make a query parameter to set it up as an admin
-  - Authentication
-    - Use jwt / bcrypt 
-    - Get from Ecommerce APP / Game TicTacToe
-  - Authorization
-    - Get from the Ecommerce app
-  - Creating Editing
+  + User login / signup
+    + While creating a user, make a query parameter to set it up as an admin
+  + Authentication
+    + Use jwt / bcrypt 
+    + Get from Ecommerce APP / Game TicTacToe
+  + Authorization
+    + Get from the Ecommerce app
+  + Creating Editing
 
 - Plan the tasks for phase1
 
@@ -73,3 +82,57 @@ P-3 15 Use the Uber API to dispatch an Uber when you buy a ticket
   - When user buys a ticket show a message. 
 16 As a mobile visitor I want to have a joyfull experience (responsive!)
 P-3 17 As a customer I want to install this as an app on my phone
+
+
+---------------------------------------------
+
+Tests : 
+
+- Add user
+
+- Add event via admin
+
+- Add tickets to the event with different users
+
+- Add comments to tickets with different users
+
+- Each user can only remove/edit its own ticket
+
+- Each user can only remove/edit its own comment
+
+- When ticket is gone, comments are gone
+
+- When event is gone, tickets are gone, comments are also gone
+
+
+
+
+----------------------------------------------------------------------
+
+Extra Ideas
+
+- Instead of deleting the entities, set isDeleted to true, 
+  to keep them and make the index continous
+- Write migrations and dummy data insertion on migrations
+- Write tests for apis
+  - Add items within the test, 
+  - Edit items within the test, 
+  - delete items within the test, 
+    - check cascaded items after deletion
+
+
+
+-----------------------------------------------------------------------
+
+Final Checks
+
+- Remove all console.logs
+- Remove all warnings
+- Check every single naming
+- Make sure all tests pass - on master branch
+- ReadMe
+  - DB instructions
+  - installation instructions
+  - check to master
+
+

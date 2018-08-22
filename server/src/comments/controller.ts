@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError } from 'routing-controllers'
+import { JsonController, Post, Param, Body, Authorized, CurrentUser, UnauthorizedError, NotFoundError, Delete } from 'routing-controllers'
 import User from '../users/entity';
 import Comment from './entity';
 import Ticket from '../tickets/entity';
@@ -28,7 +28,7 @@ export default class CommentController {
 
     const ticket = await Ticket.findOneById(ticketid)
 
-    if(!ticket) return new NotFoundError("Ticket not found")
+    if(!ticket) throw new NotFoundError("Ticket not found")
 
     entity.body = data.body
 
@@ -37,6 +37,35 @@ export default class CommentController {
 
     const comment = await entity.save()
     return comment
+  }
+
+
+  @Authorized()
+  @Delete('/tickets/:ticketid([0-9]+)/comments/:id([0-9]+)')
+  async deleteComment(
+    @CurrentUser() user: User,
+    @Param('ticketid') ticketid: number,
+    @Param('id') commentid: number
+  ){
+    console.log("new delete request to comments arrived")
+    if(!user){
+      return new UnauthorizedError("Please login")
+    }
+
+    const ticket = await Ticket.findOneById(ticketid)
+
+    if(!ticket) throw new NotFoundError("Ticket not found")
+
+    const comment = await Comment.findOneById(commentid)
+
+    if(!comment) throw new NotFoundError("Comment Not Found")
+    
+    if (user.isAdmin || user.id === comment.user_id){
+      return await comment.remove()
+    }else{
+      throw new UnauthorizedError("Only Admins and Comment Owners can delete comments")
+    }
+
   }
   
 }

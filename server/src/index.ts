@@ -24,7 +24,6 @@ useKoaServer(app, {
     EventController,
     TicketController,
     CommentController
-
   ],
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
