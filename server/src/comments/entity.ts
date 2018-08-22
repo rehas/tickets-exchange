@@ -17,6 +17,12 @@ export default class Comment extends BaseEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
   createdat: Timestamp
 
+  @Column()
+  user_id: number
+
+  @Column()
+  ticket_id: number
+
   @ManyToOne(_=>User, user=> user.comments, {onDelete:"CASCADE"})
   user: User
 
