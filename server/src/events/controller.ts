@@ -41,14 +41,6 @@ export default class EventController {
 
     const entity = await Event.findOneById(id)
     if(!entity) return new NotFoundError("Event not found")
-    
-    // console
-
-    if(entity.tickets){
-      entity.tickets.forEach(async ticket=> {
-        await ticket.remove()
-     })
-    }
 
     return await entity.remove()
 
