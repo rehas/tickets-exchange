@@ -1,9 +1,10 @@
 import React,{PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {TextField, Password, Input} from '@material-ui/core/';
-import color from '@material-ui/core/colors/teal';
-import { Button } from '@material-ui/core';
+import {Input, Button, FormGroup, FormControl} from '@material-ui/core/';
+import {login, logout} from '../actions/users'
+import {connect} from 'react-redux'
+import SignUpForm from './SignUpForm';
 
 const styles = theme => ({
   container: {
@@ -15,15 +16,23 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 150,
+    // color: 'white',
+    // backgroundColor: 'white'
   },
+  currentUser:{
+    color: 'black'
+  }
 });
 
 class LoginForm extends PureComponent  {
+
+  state={
+    signup:false
+  }
+
   propTypes = {
     classes: PropTypes.object.isRequired,
   };
-
-  state ={}
 
   handleChange = (e) =>{
     console.log(e.target.name)
@@ -31,23 +40,47 @@ class LoginForm extends PureComponent  {
   }
 
   handleSubmit = (e) => {
-    console.log(this.state)
+    e.preventDefault();
+    const {email, password} = this.state
+    this.props.login(email, password )
+
   }
+
+  handleLogoutSubmit = ()=>{
+    this.setState({signup:false})
+    this.props.logout()
+  }
+
 
   render(){
 
   return (
     <div className={this.props.classes.container}>
-      Form
+      {this.props.currentUserDetails && 
+      <p className={this.props.classes.currentUser}> 
+        {this.props.currentUserDetails.fullName} Logged In
+        <Button type='submit'
+          onClick={this.handleLogoutSubmit}
+        >
+          Logout
+        </Button>
+        </p>}
+      <div>
+        
+      </div> 
+      {(!this.props.currentUserDetails && !this.state.signup) && 
+      <div> 
+      <form onSubmit={this.handleSubmit}>
       <Input
         onChange={this.handleChange}
         label="None"
         id="email"
-        type="text"
+        type="email"
         name="email"
         defaultValue=""
         className={this.props.classes.textField}
-        helperText="Email Address"
+        placeholder="Email Address"
+        required={true}
       />
       <Input
         onChange={this.handleChange}
@@ -57,20 +90,39 @@ class LoginForm extends PureComponent  {
         name="password"
         defaultValue=""
         className={this.props.classes.textField}
-        helperText="Password"
+        placeholder="PassWord"
         margin="dense"
+        required={true}
       />
       <Button
         type="submit"
         
-        onClick={this.handleSubmit}
+        // onClick={this.handleSubmit}
       > Login</Button>
-    </div>
+      </form>
+      <Button onClick={(e) => this.setState({signup: !this.state.signup})}>SignUP</Button>
+      </div>
+      }
+      <div>
+      {this.state.signup && 
+      
+      <SignUpForm/>
+      }
+      </div>
+      }
+      </div>
+      
     );
   }
 
 };
 
+const mapStateToProps = state =>{
+  return {
+    currentUser : state.currentUser,
+    currentUserDetails : state.currentUserDetails
+  }
+}
 
+export default connect(mapStateToProps, {login, logout})(withStyles(styles)(LoginForm));
 
-export default withStyles(styles)(LoginForm);

@@ -1,6 +1,6 @@
 import * as request from 'superagent'
 import {baseUrl} from '../constants'
-import {isExpired} from '../jwt'
+import {isExpired, userId } from '../jwt'
 
 export const ADD_USER = 'ADD_USER'
 export const UPDATE_USER = 'UPDATE_USER'
@@ -13,6 +13,8 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS'
 export const USER_SIGNUP_FAILED = 'USER_SIGNUP_FAILED'
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+
 
 export const logout = () => ({
   type: USER_LOGOUT
@@ -21,6 +23,11 @@ export const logout = () => ({
 const userLoginSuccess = (login) => ({
   type: USER_LOGIN_SUCCESS,
   payload: login
+})
+
+const setCurrentUserDetails = (user) =>({
+  type: SET_CURRENT_USER,
+  payload: user
 })
 
 const userLoginFailed = (error) => ({
@@ -46,7 +53,11 @@ export const login = (email, password) => (dispatch) =>
 	request
 		.post(`${baseUrl}/logins`)
     .send({email, password})
-    .then(result => dispatch(userLoginSuccess(result.body)))
+    .then(result => {
+      dispatch(userLoginSuccess(result.body));
+      console.log("User jwt success");
+    })
+    .then(_ => dispatch(getCurrentUser()))
     .catch(err => {
     	if (err.status === 400) {
     		dispatch(userLoginFailed(err.response.body.message))
@@ -56,21 +67,28 @@ export const login = (email, password) => (dispatch) =>
     	}
     })
 
-export const signup = (email, password) => (dispatch) =>
-	request
-		.post(`${baseUrl}/users`)
-		.send({ firstName: email, lastName: email, email, password })
-		.then(result => {
-			dispatch(userSignupSuccess())
-		})
-		.catch(err => {
-			if (err.status === 400) {
-				dispatch(userSignupFailed(err.response.body.message))
-			}
-			else {
-				console.error(err)
-			}
-		})
+export const signup = (email, password, fullName, adminCheck) => (dispatch) =>{
+
+  const isAdmin = (adminCheck === 'sadmin') ? true : false
+
+ return request
+  .post(`${baseUrl}/users`)
+  .query({ isAdmin: isAdmin })
+  .send({ fullName, password, email})
+  .then(result => {
+    dispatch(userSignupSuccess());
+    dispatch(login(email, password))
+  })
+  .catch(err => {
+    if (err.status === 400) {
+      dispatch(userSignupFailed(err.response.body.message))
+      alert(err.response.body.message)
+    }
+    else {
+      console.error(err)
+    }
+  })
+}
 
 export const getUsers = () => (dispatch, getState) => {
   const state = getState()
@@ -84,4 +102,16 @@ export const getUsers = () => (dispatch, getState) => {
     .set('Authorization', `Bearer ${jwt}`)
     .then(result => dispatch(updateUsers(result.body)))
     .catch(err => console.error(err))
+}
+
+export const getCurrentUser = () => (dispatch, getState) =>{
+  const jwt = getState().currentUserJWT.jwt
+  const id = userId(jwt)
+  console.log("getCurrentUser called")
+  console.log(jwt)
+  request
+    .get(`${baseUrl}/users/${id}`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .then(result => dispatch(setCurrentUserDetails(result.body)))
+    .catch(e=> console.err(e))
 }
