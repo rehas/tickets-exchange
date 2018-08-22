@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Get, Body, Authorized, QueryParam, BadRequestError } from 'routing-controllers'
+import { JsonController, Post, Param, Get, Body, Authorized, QueryParam, BadRequestError, CurrentUser, UnauthorizedError } from 'routing-controllers'
 import User from './entity';
 
 @JsonController()
@@ -32,9 +32,11 @@ export default class UserController {
   @Authorized()
   @Get('/users/:id([0-9]+)')
   getUser(
-    @Param('id') id: number
+    @Param('id') id: number,
+    @CurrentUser() user :User
   ) {
-    return User.findOneById(id)
+    if(user.id === id || user.isAdmin) return User.findOneById(id, {relations:["tickets", "comments"]})
+    throw new UnauthorizedError("Only logged in user or Admins can access user details")
   }
 
   @Authorized()

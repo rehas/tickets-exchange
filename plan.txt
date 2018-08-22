@@ -3,13 +3,49 @@
 PHASE 1
 
 - SETUP CLIENT SIDE
-  HERE> Create-React-App
-    - Add redux
-    - Redux-thunk - superagent
+    + Create-React-App
+    + Add redux
+    + Redux-thunk - superagent
     - Use SignUp - Login page from game API / Ecommerce App
 
   - Plan / write out the components
+    + Setup Store, 
+    + Setup ReduxDevTools
+    + Setup Router - BrowserRouter
+    - Sign Up, Sign-In, Sign-Out
+      - Create component
+        + Initialize
+        + Create Material UI Form
+      - Create actions
+        + Create logged in,
+        + Create logged out
+        + SignUp
+          + Form
+          + Action
+      - Create reducers
+        + Set CurrentUser
+          + Bring CurrentUser-Tickets,
+          + Bring CurrentUser-Comments
     - Component / Presenter
+      + Login Component 
+        + In the headerBar
+        + Show logged in status
+        + Show Logout Button
+        + Show SignUp button when not logged in
+      - Events Component
+        - Show Upto 4 events with pages
+        - EventBox Presenter
+          - Has a local state of the page it's on => to pass appropriate events to the children
+          - Each one shows one event
+      - EventDetails Component
+        - Shows Tickets for the event as a link
+          - These are TicketLine components
+      - TicketDetails Component
+        - Shows details of ticket
+        - Shows Comments of ticket
+          - As a comment component
+        -    
+    - Every URL Route
 
 - SETUP SERVER SIDE
   + Setup Koa server with cors
