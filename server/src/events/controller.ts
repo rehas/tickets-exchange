@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Get, Body, Authorized, CurrentUser, UnauthorizedError, Delete, NotFoundError, HttpCode } from 'routing-controllers'
+import { JsonController, Post, Param, Get, Body, Authorized, CurrentUser, UnauthorizedError, Delete, NotFoundError, HttpCode, Patch } from 'routing-controllers'
 import Event from './entity';
 import User from '../users/entity';
 
@@ -25,6 +25,7 @@ export default class EventController {
   }
 
   // @HttpCode(200)
+  @Authorized()
   @Delete('/events/:id([0-9]+)')
   async deleteEvent(
     @Param('id') id: number,
@@ -43,6 +44,33 @@ export default class EventController {
     if(!entity) return new NotFoundError("Event not found")
 
     return await entity.remove()
+
+  }
+
+  @Authorized()
+  @HttpCode(201)
+  @Patch('/events/:id([0-9]+)')
+  async editEvent(
+    @Param('id') id: number,
+    @CurrentUser() user:User,
+    @Body() partialEvent: object
+  ){
+    console.log("incoming edit request to events")
+    console.log(user)
+
+    if(!user) throw new UnauthorizedError("Please Login")
+
+    if (!user.isAdmin){
+      throw new UnauthorizedError("Only Admins Can Delete Events")
+    }
+
+    const entity = await Event.findOneById(id)
+
+    if(!entity) return new NotFoundError("Event not found")
+
+    Object.assign(entity, partialEvent)
+
+    return await entity.save()
 
   }
 
