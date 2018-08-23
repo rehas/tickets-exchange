@@ -131,8 +131,8 @@ EXTRAS
       - Try on mobile screen
       - commit to a different branch
 
-    - Ticket sorting on author and price
-      - try price first on the front end
+    + Ticket sorting on price
+      + try price first on the front end
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ PROJECT RUBRIC
 -- Bonus stories --
 + P-1 12 As an admin I should be able to delete any comment and edit/delete any ticket 
 + P-2 13 As a customer I want to be able to filter and search in the list of events
-P-2 14 As a customer I want to be able to sort the list of tickets on author and price 
++ -only on price - P-2 14 As a customer I want to be able to sort the list of tickets on author and price 
 P-3 15 Use the Uber API to dispatch an Uber when you buy a ticket
   - When user buys a ticket show a message. 
 16 As a mobile visitor I want to have a joyfull experience (responsive!)
