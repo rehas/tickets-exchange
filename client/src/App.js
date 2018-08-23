@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm'
 import Events from './components/Events';
 import EventDetails from './components/EventDetails';
 import TicketDetails from './components/TicketDetails';
+import SearchBox from './components/SearchBox';
 
 class App extends Component {
   render() {
@@ -13,6 +14,11 @@ class App extends Component {
         <header className="App-header">
           <LoginForm/>
           <h1 className="App-title">Welcome to Ebay For Tickets</h1>
+          <Router>
+          {/* <SearchBox/> */}
+          <Route exact path='/' component={SearchBox}/>
+      
+          </Router>
         </header>
         
         <Router>

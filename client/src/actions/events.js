@@ -3,6 +3,7 @@ import {baseUrl} from '../constants'
 
 export const GET_EVENTS = 'GET_EVENTS'
 export const GET_SINGLE_EVENT = 'GET_SINGLE_EVENT'
+export const FILTER_EVENTS = 'FILTER_EVENTS'
 
 const getEventsSuccess = (events) => ({
   type: GET_EVENTS,
@@ -30,6 +31,11 @@ export const getEvents = () => (dispatch) =>{
 const getEventSuccess = (event) => ({
   type: GET_SINGLE_EVENT,
   payload: event
+})
+
+const filterEventsAction = (str) =>({
+  type: FILTER_EVENTS,
+  payload: str
 })
 
 export const getEvent = (id) => (dispatch) =>{
@@ -77,5 +83,8 @@ export const deleteEvent = (eventid) => (dispatch, getState) =>{
     .set('Authorization', `Bearer ${jwt}`)
     .then(result=> dispatch(getEvents()))
     .catch(error=> console.error(error))
+}
 
+export const filterEvents = (str) => (dispatch, getState) =>{
+  dispatch( filterEventsAction(str))
 }

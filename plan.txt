@@ -114,11 +114,11 @@ PHASE 1
 ----------------------------------------------------------------------------------------------------
 EXTRAS
 
-HERE> Setup navigation buttons
+    - Setup navigation buttons
       - Setup Home, Button on Header to go back home anytime
       - Setup Event Details button to appear when on ticket details
       - commit to different branch
-    - Event search box
+    HERE> Event search box
       - Put an input box and filter out in the front end
       - Make sure there is a clear button
       - commit to a different branch
