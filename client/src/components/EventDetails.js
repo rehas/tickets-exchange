@@ -81,8 +81,9 @@ class EventDetails extends PureComponent  {
       <Table className={ this.props.classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell>Event Name</TableCell>
             <TableCell >Description</TableCell>
+            {/* <TableCell >Ticket Owner</TableCell> */}
             <TableCell numeric>Price</TableCell>
             {/* <TableCell numeric>Risk</TableCell> */}
             <TableCell numeric>Details</TableCell>
@@ -94,9 +95,10 @@ class EventDetails extends PureComponent  {
                 
               <TableRow key={ticket.id}>
                 <TableCell component="th" scope="ticket">
-                  {ticket.event_id}
+                  {this.props.event.title}
                 </TableCell>
                 <TableCell >{ticket.description}</TableCell>
+                {/* <TableCell >{ticket.user_id}</TableCell> */}
                 <TableCell numeric>{ticket.price}</TableCell>
                 {/* <TableCell numeric>{riskArray.length > 0 && riskArray.filter(risk=> risk.ticket.id === ticket.id)[0].risk}</TableCell> */}
                 <TableCell >

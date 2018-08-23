@@ -67,3 +67,24 @@ export const addTicket = (eventid, userid, price, description, picture) => (disp
     .then(result=> dispatch( getEvent(eventid)))
     .catch(error => console.error(error))
 }
+
+export const editTicket = (ticketid,price, description, picture) => (dispatch, getState) =>{
+  const state = getState()
+  if (!state.currentUserJWT) return null
+  const jwt = state.currentUserJWT.jwt
+  
+  console.log("@ edit ticket action dispatcher")
+  console.log(price, description, picture)
+
+  request
+    .patch(`${baseUrl}/tickets/${ticketid}`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .send({
+      price, 
+      picture, 
+      description,
+    })
+    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
+    .then(result=> dispatch( getTicket(null, ticketid) ))
+    .catch(error => console.error(error))
+}

@@ -57,8 +57,8 @@ PHASE 1
           - As a comment component
       - Add Tickets for customer,
         + Add
-        HERE> Edit
-        - Delete
+        + Edit
+        HERE> Delete
       - Add comments for customer    
         - No edit/ only delete
     - Every URL Route

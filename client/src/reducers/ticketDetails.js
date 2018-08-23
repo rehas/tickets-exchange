@@ -8,6 +8,6 @@ export default function (state=initialState, {type, payload}){
       return payload
   
     default:
-      return initialState
+      return state
   }
 }

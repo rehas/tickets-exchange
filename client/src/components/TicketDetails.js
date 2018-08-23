@@ -3,6 +3,7 @@ import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody} from '@ma
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getTicket} from '../actions/tickets'
+import EditTicketForm from './EditTicketForm';
 
 
 const styles = theme => ({
@@ -51,7 +52,8 @@ class TicketDetails extends PureComponent  {
   }
   render(){
     return ( <div>
-      {this.props.ticketDetails && 
+      {this.props.ticketDetails &&
+      <div> 
       <Grid container direction="column"
       justify="center"
       alignItems="center">
@@ -68,6 +70,17 @@ class TicketDetails extends PureComponent  {
         })
         }
       </Grid >
+      
+        { 
+        <div>
+          { this.props.currentUser && 
+            (this.props.currentUser.isAdmin ||
+            this.props.ticketDetails.ticket.user_id === this.props.currentUser.id) &&
+            <EditTicketForm ticket={this.props.ticketDetails.ticket}/>
+          }
+        </div>
+        }
+        </div>
       }
       </div>
     )
@@ -76,7 +89,8 @@ class TicketDetails extends PureComponent  {
 
 const mapStateToProps = state =>{
   return {
-    ticketDetails : state.ticketDetails
+    ticketDetails : state.ticketDetails,
+    currentUser : state.currentUserDetails
   }
 }
 
