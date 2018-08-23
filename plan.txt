@@ -42,12 +42,20 @@ PHASE 1
         HERE> If Admin, delete edit
         - Shows Tickets for the event as a link
           + These are Links to ticket details
+          - Also shows ticket risk
+            - Assign risk key to every ticket entity when returning from controller
+              - especially when returning tickets from an event, 
+              - or when returning all tickets
+              - or when returning single ticket 
       - TicketDetails Component
-        - Shows Risk if ticket
-        - Shows details of ticket
-        - Shows Comments of ticket
+        + Shows Risk if ticket
+        + Shows details of ticket
+        + Shows Comments of ticket
           - As a comment component
-        -    
+      - Add Tickets for customer,
+        - Edit / Delete
+      - Add comments for customer    
+        - No edit/ only delete
     - Every URL Route
 
 - SETUP SERVER SIDE

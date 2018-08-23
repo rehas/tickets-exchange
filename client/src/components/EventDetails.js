@@ -90,7 +90,7 @@ class EventDetails extends PureComponent  {
                 <TableCell numeric>{ticket.price}</TableCell>
                 {/* <TableCell numeric>{riskArray.length > 0 && riskArray.filter(risk=> risk.ticket.id === ticket.id)[0].risk}</TableCell> */}
                 <TableCell >
-                  <Link to={`/tickets/${ticket.id}`}>
+                  <Link to={`/events/${this.props.event.id}/tickets/${ticket.id}`}>
                   Ticket Details
                   </Link>
                 </TableCell>

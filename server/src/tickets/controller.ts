@@ -91,10 +91,18 @@ export default class TicketController {
   // @Authorized()
   // Get ticket by id with event
   @Get('/tickets/:ticketid([0-9]+)')
-  getTicket(
+  async getTicket(
     @Param('ticketid') ticketid: number,
   ) {
-    return Ticket.findOneById(ticketid, {relations:["event", "comments"]})
+    const ticket = await Ticket.findOneById(ticketid, {relations:["event", "comments"]})
+
+    if(!ticket) throw new NotFoundError("Ticket Not Found")
+    
+    // const {risk} = await this.getTicketRisk(ticketid)
+
+    // const ticketWithRisk = {}
+
+    return ticket
   }
 
   // @Authorized()
@@ -112,7 +120,7 @@ export default class TicketController {
   async getTicketRisk(
     @Param('ticketid') ticketid: number,
   ){
-    const ticket = await Ticket.findOneById(ticketid, {relations:["comments"]})
+    const ticket = await Ticket.findOneById(ticketid, {relations:["comments", "user", "comments.user"]})
     if(!ticket) throw new NotFoundError("Ticket Not Found")
     console.log(ticket)
     // console.log(ticket.event)
