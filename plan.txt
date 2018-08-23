@@ -111,8 +111,28 @@ PHASE 1
 + Plan the tasks for phase1
 
 !!! MVp COMPLETEEE
+----------------------------------------------------------------------------------------------------
+EXTRAS
 
 HERE> Setup navigation buttons
+      - Setup Home, Button on Header to go back home anytime
+      - Setup Event Details button to appear when on ticket details
+      - commit to different branch
+    - Event search box
+      - Put an input box and filter out in the front end
+      - Make sure there is a clear button
+      - commit to a different branch
+    - Clear unnecessary api endpoints.
+      - definitely commit to a different branch 
+    - Adjust Fonts
+    - Adjust Spacing for forms
+      - commit to a different branch
+    - Adjust spacing for grids
+      - Try on mobile screen
+      - commit to a different branch
+
+    - Ticket sorting on author and price
+      - try price first on the front end
 
 --------------------------------------------------------------------------------------------------------------
 
