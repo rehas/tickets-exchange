@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getTicket} from '../actions/tickets'
 import EditTicketForm from './EditTicketForm';
+import CommentForm from './CommentForm';
 
 
 const styles = theme => ({
@@ -77,6 +78,14 @@ class TicketDetails extends PureComponent  {
             (this.props.currentUser.isAdmin ||
             this.props.ticketDetails.ticket.user_id === this.props.currentUser.id) &&
             <EditTicketForm ticket={this.props.ticketDetails.ticket} history={this.props.history}/>
+          }
+        </div>
+        }
+        { 
+        <div>
+          { this.props.currentUser && 
+            (this.props.currentUser.id !== this.props.ticketDetails.ticket.user_id) &&
+            <CommentForm ticket={this.props.ticketDetails.ticket} history={this.props.history}/>
           }
         </div>
         }

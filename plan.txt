@@ -59,7 +59,8 @@ PHASE 1
         + Add
         + Edit
         + Delete
-      - Add comments for customer    
+      - Add comments for customer
+        + Logged in users can add comments to tickets    
         HERE> No edit/ only delete
     - Every URL Route
 
