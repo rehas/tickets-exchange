@@ -1,5 +1,6 @@
 import * as request from 'superagent'
 import {baseUrl} from '../constants'
+import {getEvent} from './events'
 
 export const GET_TICKETS_BY_EVENT = 'GET_TICKETS_BY_EVENT'
 export const GET_SINGLE_TICKET = 'GET_SINGLE_TICKET'
@@ -39,5 +40,30 @@ export const getTicket = (eventid, ticketid) => (dispatch) =>{
     .get(`${baseUrl}/tickets/${ticketid}/risk`)
     // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> dispatch( getTicketSuccess( result.body)))
+    .catch(error => console.error(error))
+}
+
+export const addTicket = (eventid, userid, price, description, picture) => (dispatch, getState) =>{
+  const state = getState()
+  if (!state.currentUserJWT) return null
+  const jwt = state.currentUserJWT.jwt
+  
+  console.log("@ add ticket action dispatcher")
+  console.log(eventid, userid, price, description, picture)
+
+  const newTicket = {
+    price, 
+    picture, 
+    description,
+    eventid,
+    userid
+  }
+
+  request
+    .post(`${baseUrl}/event/${eventid}/tickets`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .send(newTicket)
+    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
+    .then(result=> dispatch( getEvent(eventid)))
     .catch(error => console.error(error))
 }

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import * as request from 'superagent'
 import { baseUrl } from '../constants';
 import EditEventForm from './EditEventForm';
+import AddTicketForm from './AddTicketForm';
 
 
 const styles = theme => ({
@@ -117,6 +118,12 @@ class EventDetails extends PureComponent  {
             {console.log(this.props)}
             <EditEventForm history={this.props.history}/>
           </div>}
+        </div>
+      }
+      {
+        this.props.currentUser && 
+        <div>
+          <AddTicketForm eventid={this.props.match.params.eventid}/>
         </div>
       }
     </Paper>
