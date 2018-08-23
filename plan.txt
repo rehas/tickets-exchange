@@ -58,9 +58,9 @@ PHASE 1
       - Add Tickets for customer,
         + Add
         + Edit
-        HERE> Delete
+        + Delete
       - Add comments for customer    
-        - No edit/ only delete
+        HERE> No edit/ only delete
     - Every URL Route
 
 - SETUP SERVER SIDE

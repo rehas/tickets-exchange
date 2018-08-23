@@ -2,7 +2,7 @@ import React,{PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button, InputLabel} from '@material-ui/core/';
-import {editTicket} from '../actions/tickets'
+import {editTicket, deleteTicket} from '../actions/tickets'
 import {connect} from 'react-redux'
 
 const styles = theme => ({
@@ -49,6 +49,12 @@ class EditTicketForm extends PureComponent{
     // if ((title && picture && end)) return
     this.props.editTicket(this.props.ticket.id, parseInt(price), description, picture);
   }
+
+  deleteTicket = async (e) =>{
+    console.log(this.props.ticket.id)
+    await this.props.deleteTicket(this.props.ticket.id, this.props.ticket.event_id)
+    this.props.history.push(`/events/${this.props.ticket.event_id}`)
+  }
   
 
   render(){
@@ -92,6 +98,7 @@ class EditTicketForm extends PureComponent{
       
       <Button type="submit">Edit Ticket</Button>
       </form>
+      <Button onClick={this.deleteTicket} >Delete Ticket</Button>
     </div>
     )
   }
@@ -103,4 +110,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {editTicket})(withStyles(styles)(EditTicketForm))
+export default connect(mapStateToProps, {editTicket, deleteTicket})(withStyles(styles)(EditTicketForm))

@@ -88,3 +88,19 @@ export const editTicket = (ticketid,price, description, picture) => (dispatch, g
     .then(result=> dispatch( getTicket(null, ticketid) ))
     .catch(error => console.error(error))
 }
+
+export const deleteTicket = (ticketid, eventid) => (dispatch, getState) =>{
+  const state = getState()
+  if (!state.currentUserJWT) return null
+  const jwt = state.currentUserJWT.jwt
+  
+  console.log("@ delete ticket action dispatcher")
+  console.log(ticketid)
+
+  request
+    .delete(`${baseUrl}/tickets/${ticketid}`)
+    .set('Authorization', `Bearer ${jwt}`)
+    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
+    .then(result=> dispatch( getEvent(eventid) ))
+    .catch(error => console.error(error))
+}

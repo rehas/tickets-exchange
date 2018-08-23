@@ -76,7 +76,7 @@ class TicketDetails extends PureComponent  {
           { this.props.currentUser && 
             (this.props.currentUser.isAdmin ||
             this.props.ticketDetails.ticket.user_id === this.props.currentUser.id) &&
-            <EditTicketForm ticket={this.props.ticketDetails.ticket}/>
+            <EditTicketForm ticket={this.props.ticketDetails.ticket} history={this.props.history}/>
           }
         </div>
         }
