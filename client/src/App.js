@@ -14,21 +14,15 @@ class App extends Component {
         <header className="App-header">
           <LoginForm/>
           <h1 className="App-title">Welcome to Ebay For Tickets</h1>
-          <Router>
-          {/* <SearchBox/> */}
           <Route exact path='/' component={SearchBox}/>
-      
-          </Router>
         </header>
         
-        <Router>
           <main>
             <Route exact path='/' component={Events}/>
             <Route exact path='/events/:eventid' component={EventDetails}/>
             <Route exact path='/events/:eventid/tickets/:ticketid' component={TicketDetails}/>
 
           </main>
-        </Router> 
       </div>
     );
   }

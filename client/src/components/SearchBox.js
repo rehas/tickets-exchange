@@ -54,10 +54,10 @@ class SearchBox extends PureComponent  {
   }
 
   render(){
-
+    console.log(this.props)
   return (
     <div className={this.props.classes.container}>
-      {
+      { 
       <div> 
       <form onSubmit={this.handleSubmit}>
       <Input
@@ -88,12 +88,6 @@ class SearchBox extends PureComponent  {
   }
 };
 
-const mapStateToProps = state =>{
-  return {
-    currentUser : state.currentUser,
-    currentUserDetails : state.currentUserDetails
-  }
-}
 
-export default connect(mapStateToProps, {filterEvents, getEvents})(withStyles(styles)(SearchBox));
+export default connect(null, {filterEvents, getEvents})(withStyles(styles)(SearchBox));
 

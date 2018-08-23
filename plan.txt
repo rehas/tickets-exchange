@@ -118,10 +118,10 @@ EXTRAS
       - Setup Home, Button on Header to go back home anytime
       - Setup Event Details button to appear when on ticket details
       - commit to different branch
-    HERE> Event search box
-      - Put an input box and filter out in the front end
-      - Make sure there is a clear button
-      - commit to a different branch
+    + Event search box
+      + Put an input box and filter out in the front end
+      + Make sure there is a clear button
+      + commit to a different branch
     - Clear unnecessary api endpoints.
       - definitely commit to a different branch 
     - Adjust Fonts
@@ -151,7 +151,7 @@ PROJECT RUBRIC
 + P-1 10 As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
 -- Bonus stories --
 + P-1 12 As an admin I should be able to delete any comment and edit/delete any ticket 
-P-2 13 As a customer I want to be able to filter and search in the list of events
++ P-2 13 As a customer I want to be able to filter and search in the list of events
 P-2 14 As a customer I want to be able to sort the list of tickets on author and price 
 P-3 15 Use the Uber API to dispatch an Uber when you buy a ticket
   - When user buys a ticket show a message. 
