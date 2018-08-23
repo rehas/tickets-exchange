@@ -54,7 +54,6 @@ class SearchBox extends PureComponent  {
   }
 
   render(){
-    console.log(this.props)
   return (
     <div className={this.props.classes.container}>
       { 

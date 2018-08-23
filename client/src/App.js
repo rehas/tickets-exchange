@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import {Route } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import Events from './components/Events';
 import EventDetails from './components/EventDetails';
