@@ -110,7 +110,9 @@ PHASE 1
 
 + Plan the tasks for phase1
 
+!!! MVp COMPLETEEE
 
+HERE> Setup navigation buttons
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -126,7 +128,7 @@ PROJECT RUBRIC
 + P-1 08 As an author of the ticket I want to be able to edit a ticket's description, price and picture (other logged in customers cannot do this! only authors and admins)
 --09 As a logged in customer I want to be able to create events with a name, picture (logo), date and description
 + P-1 11 Only admins should be able to create, edit and delete events
-HERE=>P-1 10 As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
++ P-1 10 As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
 -- Bonus stories --
 + P-1 12 As an admin I should be able to delete any comment and edit/delete any ticket 
 P-2 13 As a customer I want to be able to filter and search in the list of events

@@ -104,6 +104,10 @@ export default class TicketController {
   ) {
     const event = await Event.findOneById(eventid, {relations:["tickets"]})
 
+    if(!event) throw new NotFoundError("event not found")
+
+    console.log(event.tickets.map(ticket=> ticket.calculateTicketRisk()))
+
     return event
   }
 

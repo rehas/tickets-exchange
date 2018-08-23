@@ -73,7 +73,22 @@ export default class EventController {
   async getEvent(
     @Param('id') id: number
   ) {
-    return await Event.findOneById(id, {relations:["tickets", "tickets.comments"]})
+
+    const event = await Event.findOneById(id, {relations:["tickets", "tickets.comments"]})
+
+    if(!event) throw new NotFoundError("Event Not Found")
+
+    const risks = await Promise.all( event.tickets.map(ticket=> ticket.calculateTicketRisk()))
+      .then(result=> result.map(item=>{return {ticId: item.ticket.id, risk : item.risk }}))
+      // .then(res=> console.log(res)) 
+
+    console.log({...event,
+      risks : risks
+      })
+
+    return {...event,
+            risks : risks
+            }
   }
 
   @HttpCode(200)

@@ -69,12 +69,15 @@ class EventDetails extends PureComponent  {
             <TableCell >Description</TableCell>
             {/* <TableCell >Ticket Owner</TableCell> */}
             <TableCell numeric>Price</TableCell>
-            {/* <TableCell numeric>Risk</TableCell> */}
+            <TableCell numeric>Risk</TableCell>
             <TableCell numeric>Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.event.tickets.map(ticket => {
+            const riskFactor = this.props.event.risks.filter(x=> x.ticId === ticket.id)[0].risk
+            const riskStyle = {};
+            riskStyle.backgroundColor = riskFactor < 10 ? 'green' : riskFactor < 50 ? 'orange' : 'red' ;
             return (
                 
               <TableRow key={ticket.id}>
@@ -84,6 +87,7 @@ class EventDetails extends PureComponent  {
                 <TableCell >{ticket.description}</TableCell>
                 {/* <TableCell >{ticket.user_id}</TableCell> */}
                 <TableCell numeric>{ticket.price}</TableCell>
+                <TableCell style={riskStyle} numeric>{this.props.event.risks.filter(x=> x.ticId === ticket.id)[0].risk} %</TableCell>
                 {/* <TableCell numeric>{riskArray.length > 0 && riskArray.filter(risk=> risk.ticket.id === ticket.id)[0].risk}</TableCell> */}
                 <TableCell >
                   <Link to={`/events/${this.props.event.id}/tickets/${ticket.id}`}>
