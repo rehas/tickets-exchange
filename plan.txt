@@ -33,14 +33,17 @@ PHASE 1
         + Show Logout Button
         + Show SignUp button when not logged in
       - Events Component
-        - Show Upto 4 events with pages
-        - EventBox Presenter
-          - Has a local state of the page it's on => to pass appropriate events to the children
-          - Each one shows one event
+        + Show Upto 4 events with pages
+        + EventBox Presenter
+          + Has a local state of the page it's on => to pass appropriate events to the children
+          + Each one shows one event
       - EventDetails Component
+        + Arrange Link
+        HERE> If Admin, delete edit
         - Shows Tickets for the event as a link
-          - These are TicketLine components
+          + These are Links to ticket details
       - TicketDetails Component
+        - Shows Risk if ticket
         - Shows details of ticket
         - Shows Comments of ticket
           - As a comment component
@@ -73,9 +76,9 @@ PHASE 1
         - Then try removing one of the arguments from the manytone constructor functions
 
     + Write down entity relations
-    - :TODO>> Decide where to put the logic
-      - Risk logic might be calculated in the backend and not put in the DB because it is dynamic
-      - It might have its own api endpoint. 
+    + :TODO>> Decide where to put the logic
+      + Risk logic might be calculated in the backend and not put in the DB because it is dynamic
+      + It might have its own api endpoint. 
   - Setup and run the DB
     + Initial Setup
     + Add a controller for User and insert via httpie
