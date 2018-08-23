@@ -34,10 +34,6 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  img:{
-    width: '300px',
-    height: '300px'
-  },
   currentUser:{
     color: 'black'
   }
@@ -62,7 +58,6 @@ class EventDetails extends PureComponent  {
   }
 
   sortHandler = (sortType) =>{
-    console.log("halo")
     if(this.state.sort === 0 ){
       this.setState({sort : -1, sorter: sortType})
     }else if(this.state.sort === -1){

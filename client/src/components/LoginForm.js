@@ -108,7 +108,7 @@ class LoginForm extends PureComponent  {
       <SignUpForm/>
       }
       </div>
-      }
+      
       </div>
       
     );
