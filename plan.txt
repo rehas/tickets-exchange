@@ -61,7 +61,7 @@ PHASE 1
         + Delete
       - Add comments for customer
         + Logged in users can add comments to tickets    
-        HERE> No edit/ only delete
+        + No edit/ only delete
     - Every URL Route
 
 - SETUP SERVER SIDE
@@ -140,6 +140,8 @@ P-3 17 As a customer I want to install this as an app on my phone
 ---------------------------------------------
 
 Tests : 
+
+HERE>
 
 - Add user
 

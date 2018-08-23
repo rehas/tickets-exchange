@@ -1,8 +1,9 @@
 import React,{PureComponent} from 'react';
-import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody} from '@material-ui/core'
+import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getTicket} from '../actions/tickets'
+import {deleteComment} from '../actions/comments'
 import EditTicketForm from './EditTicketForm';
 import CommentForm from './CommentForm';
 
@@ -51,6 +52,13 @@ class TicketDetails extends PureComponent  {
       this.props.getTicket(eventid, ticketid)
     }
   }
+
+  deleteComment = (commentId) =>{
+    console.log(commentId)
+    this.props.deleteComment(commentId, this.props.match.params.ticketid)
+
+  }
+
   render(){
     return ( <div>
       {this.props.ticketDetails &&
@@ -67,7 +75,13 @@ class TicketDetails extends PureComponent  {
         <Grid item> <h2>Description : {this.props.ticketDetails.ticket.description} </h2></Grid>
         {this.props.ticketDetails.ticket.comments.length >0 && 
         this.props.ticketDetails.ticket.comments.map(c => {
-          return <Grid item> <b> {c.user.fullName} says : </b>  {c.body} </Grid>
+          return <Grid item> 
+                  <b> {c.user.fullName} says : </b>  {c.body} 
+                  {this.props.currentUser && 
+                  (this.props.currentUser.id === c.user_id || this.props.currentUser.isAdmin) &&
+                  <Button onClick={ ()=> this.deleteComment(c.id)}>Delete</Button>
+                  }
+                  </Grid>
         })
         }
       </Grid >
@@ -88,6 +102,7 @@ class TicketDetails extends PureComponent  {
             <CommentForm ticket={this.props.ticketDetails.ticket} history={this.props.history}/>
           }
         </div>
+        
         }
         </div>
       }
@@ -103,4 +118,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {getTicket})(withStyles(styles)(TicketDetails));
+export default connect(mapStateToProps, {getTicket, deleteComment})(withStyles(styles)(TicketDetails));

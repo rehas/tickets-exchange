@@ -20,15 +20,15 @@ export const addComment = (ticketid, body) => (dispatch, getState) =>{
 }
 
 
-export const deleteEvent = (eventid) => (dispatch, getState) =>{
+export const deleteComment = (commentid, ticketid) => (dispatch, getState) =>{
   const state = getState()
   if (!state.currentUserJWT) return null
   const jwt = state.currentUserJWT.jwt
   
   return request
-    .delete(`${baseUrl}/events/${eventid}`)
+    .delete(`${baseUrl}/tickets/${ticketid}/comments/${commentid}`)
     .set('Authorization', `Bearer ${jwt}`)
-    // .then(result=> dispatch(getEvents()))
+    .then(result=> dispatch(getTicket(null, ticketid)))
     .catch(error=> console.error(error))
 
 }
