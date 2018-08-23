@@ -1,11 +1,12 @@
 import React,{PureComponent} from 'react';
-import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody} from '@material-ui/core'
+import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvent} from '../actions/events'
 import { Link } from 'react-router-dom'
 import * as request from 'superagent'
 import { baseUrl } from '../constants';
+import EditEventForm from './EditEventForm';
 
 
 const styles = theme => ({
@@ -48,6 +49,21 @@ class EventDetails extends PureComponent  {
   componentDidMount(){
     console.log(this.props.match.params.eventid)
     this.props.getEvent(this.props.match.params.eventid)
+  }
+
+  deleteEvent(){
+    // dispatch delete action for event
+    // route back to main page
+
+    
+
+  }
+
+  editEvent(){
+    // Toggle Show form
+
+    // Create editEvent Form component with passed event props. 
+    // Patch it there. 
   }
 
   render(){
@@ -100,6 +116,16 @@ class EventDetails extends PureComponent  {
           })}
         </TableBody>
       </Table>
+      {this.props.currentUser && ( this.props.currentUser.isAdmin) 
+        &&
+        <div>User is here : {this.props.currentUser.fullName}  
+          {this.props.currentUser.isAdmin && <div>Also the boss 
+            <Button onClick={this.deleteEvent}> Delete event </Button>
+            {console.log(this.props)}
+            <EditEventForm history={this.props.history}/>
+          </div>}
+        </div>
+      }
     </Paper>
     }
        </div> )
@@ -108,7 +134,8 @@ class EventDetails extends PureComponent  {
 
 const mapStateToProps = state =>{
   return {
-    event : state.eventDetails
+    event : state.eventDetails,
+    currentUser : state.currentUserDetails
   }
 }
 

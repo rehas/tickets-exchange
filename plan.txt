@@ -39,7 +39,10 @@ PHASE 1
           + Each one shows one event
       - EventDetails Component
         + Arrange Link
-        HERE> If Admin, delete edit
+        + Admin can add events
+        - If Admin, 
+          - delete 
+          HERE> edit
         - Shows Tickets for the event as a link
           + These are Links to ticket details
           - Also shows ticket risk

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvents} from '../actions/events'
 import EventBox from './EventBox';
+import AddEventForm from './AddEventForm';
 
 
 const styles = theme => ({
@@ -32,7 +33,7 @@ const styles = theme => ({
 class Events extends PureComponent  {
 
   state ={
-    currentPage: 1
+    currentPage: 1,
   }
 
   componentDidMount(){
@@ -49,6 +50,11 @@ class Events extends PureComponent  {
     if(this.state.currentPage < Math.ceil(this.props.events.length /4) ){
       this.setState({currentPage: this.state.currentPage +1})
     }
+  }
+
+  addEvent = () =>{
+    // toggle show add event form
+    
   }
 
   render(){
@@ -70,6 +76,10 @@ class Events extends PureComponent  {
         <Button onClick={this.previous} >Previous</Button>
         {this.state.currentPage}
         <Button onClick={this.next}>Next</Button>
+        <hr/>
+        {this.props.currentUser && this.props.currentUser.isAdmin && 
+        <AddEventForm/>
+        }
       </div>
     )
   }
@@ -77,7 +87,8 @@ class Events extends PureComponent  {
 
 const mapStateToProps = state =>{
   return {
-    events : state.events
+    events : state.events,
+    currentUser: state.currentUserDetails
   }
 }
 
