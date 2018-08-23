@@ -45,6 +45,11 @@ const styles = theme => ({
 
 class EventDetails extends PureComponent  {
 
+  state={
+    sort:0,
+    sorter: 'price'
+  }
+
   componentDidMount(){
     this.props.getEvent(this.props.match.params.eventid)
   }
@@ -56,6 +61,17 @@ class EventDetails extends PureComponent  {
     this.props.history.push('/')
   }
 
+  sortHandler = (sortType) =>{
+    console.log("halo")
+    if(this.state.sort === 0 ){
+      this.setState({sort : -1, sorter: sortType})
+    }else if(this.state.sort === -1){
+      this.setState({sort: 1, sorter: sortType})
+    }else{
+      this.setState({sort:-1, sorter: sortType})
+    }
+  }
+
   render(){
 
     return (<div>{
@@ -65,16 +81,16 @@ class EventDetails extends PureComponent  {
       <Table className={ this.props.classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Event Name</TableCell>
-            <TableCell >Description</TableCell>
+            <TableCell> Event Name  </TableCell>
+            <TableCell> Description </TableCell>
             {/* <TableCell >Ticket Owner</TableCell> */}
-            <TableCell numeric>Price</TableCell>
+            <TableCell onClick={ ()=> this.sortHandler('price') } numeric>Price</TableCell>
             <TableCell numeric>Risk</TableCell>
             <TableCell numeric>Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.event.tickets.map(ticket => {
+          {this.props.event.tickets.sort( (a,b) => ((a[this.state.sorter]-b[this.state.sorter]) * this.state.sort)).map(ticket => {
             const riskFactor = this.props.event.risks.filter(x=> x.ticId === ticket.id)[0].risk
             const riskStyle = {};
             riskStyle.backgroundColor = riskFactor < 10 ? 'green' : riskFactor < 50 ? 'orange' : 'red' ;
@@ -86,7 +102,7 @@ class EventDetails extends PureComponent  {
                 </TableCell>
                 <TableCell >{ticket.description}</TableCell>
                 {/* <TableCell >{ticket.user_id}</TableCell> */}
-                <TableCell numeric>{ticket.price}</TableCell>
+                <TableCell  numeric>{ticket.price}</TableCell>
                 <TableCell style={riskStyle} numeric>{this.props.event.risks.filter(x=> x.ticId === ticket.id)[0].risk} %</TableCell>
                 {/* <TableCell numeric>{riskArray.length > 0 && riskArray.filter(risk=> risk.ticket.id === ticket.id)[0].risk}</TableCell> */}
                 <TableCell >
