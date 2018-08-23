@@ -1,7 +1,6 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Input, Button, InputLabel} from '@material-ui/core/';
+import {Input, Button} from '@material-ui/core/';
 import {addTicket} from '../actions/tickets'
 import {connect} from 'react-redux'
 
@@ -27,7 +26,6 @@ class AddTicketForm extends PureComponent{
   state={}
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -36,9 +34,8 @@ class AddTicketForm extends PureComponent{
     const {description, picture, price} = this.state
     const eventid = this.props.eventid
     const userid = this.props.currentUserDetails.id
-    console.log(this.props, this.state);
     // if ((title && picture && end)) return
-    this.props.addTicket(eventid, userid, parseInt(price), description, picture);
+    this.props.addTicket(eventid, userid, parseInt(price, 10), description, picture);
     this.setState({})
     e.target.description.value =''
     e.target.picture.value =''

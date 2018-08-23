@@ -1,7 +1,6 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Input, Button, InputLabel} from '@material-ui/core/';
+import {Input, Button} from '@material-ui/core/';
 import {editTicket, deleteTicket} from '../actions/tickets'
 import {connect} from 'react-redux'
 
@@ -36,22 +35,17 @@ class EditTicketForm extends PureComponent{
   }
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const {description, picture, price} = this.state
-    const eventid = this.props.eventid
-    const userid = this.props.currentUserDetails.id
-    console.log(this.props, this.state);
     // if ((title && picture && end)) return
-    this.props.editTicket(this.props.ticket.id, parseInt(price), description, picture);
+    this.props.editTicket(this.props.ticket.id, parseInt(price, 10), description, picture);
   }
 
   deleteTicket = async (e) =>{
-    console.log(this.props.ticket.id)
     await this.props.deleteTicket(this.props.ticket.id, this.props.ticket.event_id)
     this.props.history.push(`/events/${this.props.ticket.event_id}`)
   }

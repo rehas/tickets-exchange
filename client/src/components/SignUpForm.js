@@ -1,5 +1,4 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button} from '@material-ui/core/';
 import {signup} from '../actions/users'
@@ -27,14 +26,12 @@ class SignUpForm extends PureComponent{
   state={}
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const {email, password, fullName, isAdmin} = this.state
-    console.log(email, password, fullName, isAdmin)
     if (!(email && password && fullName)) return
     this.props.signup(email, password, fullName, isAdmin )
   }
@@ -43,6 +40,7 @@ class SignUpForm extends PureComponent{
   render(){
     return (
       <div className={this.props.classes.container} >
+      {!this.props.currentUserDetails &&
       <form onSubmit={this.handleSubmit}>
       <Input
       onChange={this.handleChange}
@@ -91,6 +89,7 @@ class SignUpForm extends PureComponent{
       />
       <Button type="submit"> Create User</Button>
       </form>
+      }
     </div>
     )
   }

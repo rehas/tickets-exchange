@@ -17,7 +17,6 @@ export default class TicketController {
   ) {
     const entity = new Ticket()
     // const author = await User.findOneById(user.id)
-    console.log(user)
     if(!user){
       return new UnauthorizedError("Please login")
     }
@@ -46,8 +45,6 @@ export default class TicketController {
     @Param('ticketid') ticketid : number,
     @CurrentUser() user: User
   ){
-    console.log("incoming delete request to tickets")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 
@@ -70,8 +67,6 @@ export default class TicketController {
     @CurrentUser() user: User,
     @Body() partialTicket: object
   ){
-    console.log("incoming edit request to tickets")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 
@@ -97,10 +92,6 @@ export default class TicketController {
     const ticket = await Ticket.findOneById(ticketid, {relations:["event", "comments"]})
 
     if(!ticket) throw new NotFoundError("Ticket Not Found")
-    
-    // const {risk} = await this.getTicketRisk(ticketid)
-
-    // const ticketWithRisk = {}
 
     return ticket
   }
@@ -122,9 +113,6 @@ export default class TicketController {
   ){
     const ticket = await Ticket.findOneById(ticketid, {relations:["comments", "user", "comments.user"]})
     if(!ticket) throw new NotFoundError("Ticket Not Found")
-    console.log(ticket)
-    // console.log(ticket.event)
-    // console.log(ticket.user)
     const author = await User.findOneById(ticket.user_id, {relations:["tickets"]})
     const event = await Event.findOneById(ticket.event_id, {relations:["tickets"]})
 
@@ -147,11 +135,8 @@ export default class TicketController {
     }else{
       (priceDiff > 15) ? risk-=15 : risk-=priceDiff
     }
-    console.log(risk, "risk after average price calc")
 
     const hour = parseInt( ticket.createdat.toString().split(' ')[4].split(':')[0]) +2
-
-    console.log(hour)
 
     if(hour > 9 && hour < 17){
       risk -=13
@@ -162,8 +147,6 @@ export default class TicketController {
     if (ticket.comments.length > 3){
       risk +=6
     }
-
-    console.log(risk)
 
     risk = (risk < 2) ? 2 : (risk >98) ? 98 : risk
 

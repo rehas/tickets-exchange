@@ -1,7 +1,7 @@
 import * as request from 'superagent'
 import {baseUrl} from '../constants'
 
-import {GET_SINGLE_TICKET, getTicket} from './tickets'
+import {getTicket} from './tickets'
 
 
 

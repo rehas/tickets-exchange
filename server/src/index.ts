@@ -42,7 +42,6 @@ useKoaServer(app, {
   },
   currentUserChecker: async (action: Action) => {
     const header: string = action.request.headers.authorization
-    console.log(header)
     if (header && header.startsWith('Bearer ')) {
       const [ , token ] = header.split(' ')
       

@@ -1,11 +1,9 @@
 import React,{PureComponent} from 'react';
-import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
+import {Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvent, deleteEvent} from '../actions/events'
 import { Link } from 'react-router-dom'
-import * as request from 'superagent'
-import { baseUrl } from '../constants';
 import EditEventForm from './EditEventForm';
 import AddTicketForm from './AddTicketForm';
 
@@ -48,31 +46,17 @@ const styles = theme => ({
 class EventDetails extends PureComponent  {
 
   componentDidMount(){
-    console.log(this.props.match.params.eventid)
     this.props.getEvent(this.props.match.params.eventid)
   }
 
   deleteEvent = () =>{
     // dispatch delete action for event
     // route back to main page
-    console.log(this.props.match.params.eventid, "event to be deleted")
     this.props.deleteEvent(this.props.match.params.eventid)
     this.props.history.push('/')
   }
 
   render(){
-
-    // const riskArray = []
-
-    // this.props.event &&
-
-    // Promise.all(
-    // this.props.event.tickets.map(ticket=>{
-    //   return request
-    //     .get(`${baseUrl}/tickets/${ticket.id}/risk`)
-    // })
-    // ).then(responses=> responses.map(response=>riskArray.push(response.body)))
-    
 
     return (<div>{
       this.props.event &&
@@ -117,7 +101,6 @@ class EventDetails extends PureComponent  {
         <div>User is here : {this.props.currentUser.fullName}  
           {this.props.currentUser.isAdmin && <div>Also the boss 
             <Button onClick={this.deleteEvent}> Delete event </Button>
-            {console.log(this.props)}
             <EditEventForm history={this.props.history}/>
           </div>}
         </div>

@@ -1,5 +1,4 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button, InputLabel} from '@material-ui/core/';
 import {createEvent} from '../actions/events'
@@ -27,14 +26,12 @@ class AddEventForm extends PureComponent{
   state={}
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const {title, picture, start, end} = this.state
-    console.log(this.props, this.state);
     // if ((title && picture && end)) return
     this.props.createEvent(title,picture, start, end);
     this.setState({})

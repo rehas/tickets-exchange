@@ -16,9 +16,7 @@ export default class EventController {
       throw new UnauthorizedError("Only Admins Can Create Events")
     }
 
-    console.log("incoming post request to events")
     const entity = await Event.create(data)
-    console.log(entity)
 
     const event = await entity.save()
     return event
@@ -31,8 +29,6 @@ export default class EventController {
     @Param('id') id: number,
     @CurrentUser() user: User
   ){
-    console.log("incoming delete request to events")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 
@@ -55,8 +51,6 @@ export default class EventController {
     @CurrentUser() user:User,
     @Body() partialEvent: object
   ){
-    console.log("incoming edit request to events")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 

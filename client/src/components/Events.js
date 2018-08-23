@@ -59,18 +59,15 @@ class Events extends PureComponent  {
 
   render(){
 
-    const eventSize =  this.props.events.length
-    const totalPages = this.props.events.length / 4
     const start = (this.state.currentPage -1) *4
     const end = start +4
     
-
     return (
       <div>
-        <Grid container spacing={24} md={12} className={this.props.classes.paper} >
+        <Grid container spacing={24} className={this.props.classes.paper} >
           {this.props.events
             .slice(start, end)
-            .map(event => <EventBox data={event} />)
+            .map(event => <EventBox key={event.id} data={event} />)
           }
         </Grid>
         <Button onClick={this.previous} >Previous</Button>

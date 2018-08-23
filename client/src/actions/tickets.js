@@ -22,7 +22,6 @@ export const getTicketsByEvent = (eventid) => (dispatch) =>{
 
   request
     .get(`${baseUrl}/event/${eventid}/tickets`)
-    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> result.body.filter(event=> event.end > today))
     .then(events=> dispatch(getTicketsByEventSuccess(events)))
     .catch(error => console.error(error))
@@ -35,10 +34,8 @@ const getTicketSuccess = (ticket) => ({
 })
 
 export const getTicket = (eventid, ticketid) => (dispatch) =>{
-  console.log("@ get ticket action dispatcher")
   request
     .get(`${baseUrl}/tickets/${ticketid}/risk`)
-    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> dispatch( getTicketSuccess( result.body)))
     .catch(error => console.error(error))
 }
@@ -48,8 +45,6 @@ export const addTicket = (eventid, userid, price, description, picture) => (disp
   if (!state.currentUserJWT) return null
   const jwt = state.currentUserJWT.jwt
   
-  console.log("@ add ticket action dispatcher")
-  console.log(eventid, userid, price, description, picture)
 
   const newTicket = {
     price, 
@@ -63,7 +58,6 @@ export const addTicket = (eventid, userid, price, description, picture) => (disp
     .post(`${baseUrl}/event/${eventid}/tickets`)
     .set('Authorization', `Bearer ${jwt}`)
     .send(newTicket)
-    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> dispatch( getEvent(eventid)))
     .catch(error => console.error(error))
 }
@@ -73,9 +67,6 @@ export const editTicket = (ticketid,price, description, picture) => (dispatch, g
   if (!state.currentUserJWT) return null
   const jwt = state.currentUserJWT.jwt
   
-  console.log("@ edit ticket action dispatcher")
-  console.log(price, description, picture)
-
   request
     .patch(`${baseUrl}/tickets/${ticketid}`)
     .set('Authorization', `Bearer ${jwt}`)
@@ -84,7 +75,6 @@ export const editTicket = (ticketid,price, description, picture) => (dispatch, g
       picture, 
       description,
     })
-    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> dispatch( getTicket(null, ticketid) ))
     .catch(error => console.error(error))
 }
@@ -94,13 +84,9 @@ export const deleteTicket = (ticketid, eventid) => (dispatch, getState) =>{
   if (!state.currentUserJWT) return null
   const jwt = state.currentUserJWT.jwt
   
-  console.log("@ delete ticket action dispatcher")
-  console.log(ticketid)
-
   request
     .delete(`${baseUrl}/tickets/${ticketid}`)
     .set('Authorization', `Bearer ${jwt}`)
-    // .then(result=> {console.log(result); console.log(today, result.body.filter(event=> { console.log(event.end, today, event.end > today); return event.end.toString() > today})) ; return result.body.filter(event=> event.end > today)})
     .then(result=> dispatch( getEvent(eventid) ))
     .catch(error => console.error(error))
 }

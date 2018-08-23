@@ -1,5 +1,4 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button, InputLabel} from '@material-ui/core/';
 import {editEvent} from '../actions/events'
@@ -27,21 +26,18 @@ class EditEventForm extends PureComponent{
   state={}
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
    handleSubmit = async (e) => {
     e.preventDefault();
     const {title, picture, start, end} = this.state
-    console.log(this.props, this.state);
     // if ((title && picture && end)) return
     await this.props.editEvent(title,picture, start, end, this.props.event.id);
     this.props.history.push('/')
   }
 
   componentDidMount(){
-   console.log(this.props.event)
    this.setState({
      title: this.props.event.title,
      picture: this.props.event.picture,

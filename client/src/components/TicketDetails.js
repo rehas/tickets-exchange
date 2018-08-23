@@ -1,5 +1,5 @@
 import React,{PureComponent} from 'react';
-import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
+import {Grid, Button} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getTicket} from '../actions/tickets'
@@ -54,7 +54,6 @@ class TicketDetails extends PureComponent  {
   }
 
   deleteComment = (commentId) =>{
-    console.log(commentId)
     this.props.deleteComment(commentId, this.props.match.params.ticketid)
 
   }

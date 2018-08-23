@@ -143,21 +143,21 @@ Tests :
 
 HERE>
 
-- Add user
++ Add user
 
-- Add event via admin
++ Add event via admin
 
-- Add tickets to the event with different users
++ Add tickets to the event with different users
 
-- Add comments to tickets with different users
++ Add comments to tickets with different users
 
-- Each user can only remove/edit its own ticket
++ Each user can only remove/edit its own ticket
 
-- Each user can only remove/edit its own comment
++ Each user can only remove/edit its own comment
 
-- When ticket is gone, comments are gone
++ When ticket is gone, comments are gone
 
-- When event is gone, tickets are gone, comments are also gone
++ When event is gone, tickets are gone, comments are also gone
 
 
 

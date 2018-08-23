@@ -1,7 +1,6 @@
 import React,{PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Input, Button, InputLabel} from '@material-ui/core/';
+import {Input, Button} from '@material-ui/core/';
 import {addComment} from '../actions/comments'
 import {connect} from 'react-redux'
 
@@ -27,7 +26,6 @@ class CommentForm extends PureComponent{
   state={}
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -35,8 +33,6 @@ class CommentForm extends PureComponent{
     e.preventDefault();
     const {body} = this.state
     const ticketid = this.props.ticket.id
-    const userid = this.props.currentUserDetails.id
-    console.log( this.state);
     // if ((title && picture && end)) return
     this.props.addComment(ticketid, body);
     this.setState({})

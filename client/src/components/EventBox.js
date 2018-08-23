@@ -39,7 +39,7 @@ class Events extends PureComponent  {
       <Grid item className={this.props.classes.paper} md={6}>
         <Link to={`/events/${this.props.data.id}`}>
         <p> {this.props.data.title} </p>
-        <img src={this.props.data.picture} alt="" className={this.props.classes.img} srcset=""/>
+        <img src={this.props.data.picture} alt="" className={this.props.classes.img}/>
         <p> start : {this.props.data.start} </p>
         <p> end : {this.props.data.end} </p>
         </Link>
