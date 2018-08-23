@@ -2,7 +2,7 @@ import React,{PureComponent} from 'react';
 import {Grid, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
-import {getEvent} from '../actions/events'
+import {getEvent, deleteEvent} from '../actions/events'
 import { Link } from 'react-router-dom'
 import * as request from 'superagent'
 import { baseUrl } from '../constants';
@@ -51,19 +51,12 @@ class EventDetails extends PureComponent  {
     this.props.getEvent(this.props.match.params.eventid)
   }
 
-  deleteEvent(){
+  deleteEvent = () =>{
     // dispatch delete action for event
     // route back to main page
-
-    
-
-  }
-
-  editEvent(){
-    // Toggle Show form
-
-    // Create editEvent Form component with passed event props. 
-    // Patch it there. 
+    console.log(this.props.match.params.eventid, "event to be deleted")
+    this.props.deleteEvent(this.props.match.params.eventid)
+    this.props.history.push('/')
   }
 
   render(){
@@ -139,4 +132,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {getEvent})(withStyles(styles)(EventDetails));
+export default connect(mapStateToProps, {getEvent, deleteEvent})(withStyles(styles)(EventDetails));

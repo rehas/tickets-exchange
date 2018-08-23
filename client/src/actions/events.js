@@ -78,3 +78,16 @@ export const editEvent = (title, picture, start, end, eventid) => (dispatch, get
     .catch(error=> console.error(error))
 
 }
+
+export const deleteEvent = (eventid) => (dispatch, getState) =>{
+  const state = getState()
+  if (!state.currentUserJWT) return null
+  const jwt = state.currentUserJWT.jwt
+  
+  return request
+    .delete(`${baseUrl}/events/${eventid}`)
+    .set('Authorization', `Bearer ${jwt}`)
+    .then(result=> dispatch(getEvents()))
+    .catch(error=> console.error(error))
+
+}
