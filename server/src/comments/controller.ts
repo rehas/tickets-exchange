@@ -24,8 +24,6 @@ export default class CommentController {
 
     const entity = new Comment()
 
-    console.log("incoming post request to comments")
-
     const ticket = await Ticket.findOneById(ticketid)
 
     if(!ticket) throw new NotFoundError("Ticket not found")
@@ -47,7 +45,6 @@ export default class CommentController {
     @Param('ticketid') ticketid: number,
     @Param('id') commentid: number
   ){
-    console.log("new delete request to comments arrived")
     if(!user){
       return new UnauthorizedError("Please login")
     }

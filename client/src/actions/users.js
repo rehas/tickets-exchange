@@ -55,7 +55,6 @@ export const login = (email, password) => (dispatch) =>
     .send({email, password})
     .then(result => {
       dispatch(userLoginSuccess(result.body));
-      console.log("User jwt success");
     })
     .then(_ => dispatch(getCurrentUser()))
     .catch(err => {
@@ -107,8 +106,6 @@ export const getUsers = () => (dispatch, getState) => {
 export const getCurrentUser = () => (dispatch, getState) =>{
   const jwt = getState().currentUserJWT.jwt
   const id = userId(jwt)
-  console.log("getCurrentUser called")
-  console.log(jwt)
   request
     .get(`${baseUrl}/users/${id}`)
     .set('Authorization', `Bearer ${jwt}`)

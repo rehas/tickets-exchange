@@ -9,19 +9,14 @@ export default class UserController {
     @Body() data: User,
     @QueryParam('isAdmin') isBoss : boolean
   ) {
-    console.log("incoming post request")
-    console.log(`isBoss -> ${isBoss}`)
-    console.log(data)
     
     const {password, email, ...rest} = data
     if( await User.findOne({email: email })){
       throw new BadRequestError("email already exists")
     }
-    console.log(password)
     const entity = User.create(rest)
     entity.email = email
     await entity.setPassword(password)
-    console.log(entity)
 
     if(isBoss) entity.isAdmin = true
 

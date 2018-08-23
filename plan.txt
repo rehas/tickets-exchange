@@ -2,49 +2,66 @@
 ------------------------------------
 PHASE 1
 
-- SETUP CLIENT SIDE
++ SETUP CLIENT SIDE
     + Create-React-App
     + Add redux
     + Redux-thunk - superagent
-    - Use SignUp - Login page from game API / Ecommerce App
+    + Use SignUp - Login page from game API / Ecommerce App
 
   - Plan / write out the components
     + Setup Store, 
     + Setup ReduxDevTools
     + Setup Router - BrowserRouter
-    - Sign Up, Sign-In, Sign-Out
-      - Create component
+    + Sign Up, Sign-In, Sign-Out
+      + Create component
         + Initialize
         + Create Material UI Form
-      - Create actions
+      + Create actions
         + Create logged in,
         + Create logged out
         + SignUp
           + Form
           + Action
-      - Create reducers
+      + Create reducers
         + Set CurrentUser
           + Bring CurrentUser-Tickets,
           + Bring CurrentUser-Comments
-    - Component / Presenter
+    + Component / Presenter
       + Login Component 
         + In the headerBar
         + Show logged in status
         + Show Logout Button
         + Show SignUp button when not logged in
-      - Events Component
-        - Show Upto 4 events with pages
-        - EventBox Presenter
-          - Has a local state of the page it's on => to pass appropriate events to the children
-          - Each one shows one event
-      - EventDetails Component
-        - Shows Tickets for the event as a link
-          - These are TicketLine components
-      - TicketDetails Component
-        - Shows details of ticket
-        - Shows Comments of ticket
+      + Events Component
+        + Show Upto 4 events with pages
+        + EventBox Presenter
+          + Has a local state of the page it's on => to pass appropriate events to the children
+          + Each one shows one event
+      + EventDetails Component
+        + Arrange Link
+        + Admin can add events
+        + If Admin, 
+          + delete 
+          + edit
+        + Shows Tickets for the event as a link
+          + These are Links to ticket details
+          - Also shows ticket risk
+            - Assign risk key to every ticket entity when returning from controller
+              - especially when returning tickets from an event, 
+              - or when returning all tickets
+              - or when returning single ticket 
+      + TicketDetails Component
+        + Shows Risk if ticket
+        + Shows details of ticket
+        + Shows Comments of ticket
           - As a comment component
-        -    
+      + Add Tickets for customer,
+        + Add
+        + Edit
+        + Delete
+      + Add comments for customer
+        + Logged in users can add comments to tickets    
+        + No edit/ only delete
     - Every URL Route
 
 - SETUP SERVER SIDE
@@ -70,18 +87,18 @@ PHASE 1
       + Cascade delete options
         + THIS WORKED! First try adding the relevant id's to manyToOne entities, try deleting
           + then try deleting the event to see tickets are gone as well.+ 
-        - Then try removing one of the arguments from the manytone constructor functions
+        ~ Then try removing one of the arguments from the manytone constructor functions
 
     + Write down entity relations
-    - :TODO>> Decide where to put the logic
-      - Risk logic might be calculated in the backend and not put in the DB because it is dynamic
-      - It might have its own api endpoint. 
-  - Setup and run the DB
+    + :TODO>> Decide where to put the logic
+      + Risk logic might be calculated in the backend and not put in the DB because it is dynamic
+      + It might have its own api endpoint. 
+  + Setup and run the DB
     + Initial Setup
     + Add a controller for User and insert via httpie
 
 
-- MVP of the APP
++ MVP of the APP
   + User login / signup
     + While creating a user, make a query parameter to set it up as an admin
   + Authentication
@@ -91,27 +108,29 @@ PHASE 1
     + Get from the Ecommerce app
   + Creating Editing
 
-- Plan the tasks for phase1
++ Plan the tasks for phase1
 
+!!! MVp COMPLETEEE
 
+HERE> Setup navigation buttons
 
 --------------------------------------------------------------------------------------------------------------
 
 PROJECT RUBRIC
 
-P-1 01 As a customer I want to see max. 4 events on a page and be able to click 'next' to see more pages of events if there are more
-P-1 02 As a customer I only want to see events that are not finished yet
-P-1 03 As a customer I want to view a list of tickets when I click on an event
-P-1 04 As a customer I want to view ticket details when I click on a ticket in the ticket list
-P-1 05 As a customer I want to see what the fraud-risk is for a specific ticket
-P-1 06 As a customer I want to be able to login, or sign up if I don't have an account yet
-P-1 07 As a logged in customer I want to add a ticket (for a specific event) that shows up on the event page with a title, picture, price and description\
-P-1 08 As an author of the ticket I want to be able to edit a ticket's description, price and picture (other logged in customers cannot do this! only authors and admins)
++ P-1 01 As a customer I want to see max. 4 events on a page and be able to click 'next' to see more pages of events if there are more
++ P-1 02 As a customer I only want to see events that are not finished yet
++ P-1 03 As a customer I want to view a list of tickets when I click on an event
++ P-1 04 As a customer I want to view ticket details when I click on a ticket in the ticket list
++ P-1 05 As a customer I want to see what the fraud-risk is for a specific ticket
++ P-1 06 As a customer I want to be able to login, or sign up if I don't have an account yet
++ P-1 07 As a logged in customer I want to add a ticket (for a specific event) that shows up on the event page with a title, picture, price and description\
++ P-1 08 As an author of the ticket I want to be able to edit a ticket's description, price and picture (other logged in customers cannot do this! only authors and admins)
 --09 As a logged in customer I want to be able to create events with a name, picture (logo), date and description
-P-1 11 Only admins should be able to create, edit and delete events
-P-1 10 As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
++ P-1 11 Only admins should be able to create, edit and delete events
++ P-1 10 As a customer I can see some color (red/yellow/green) indicating the fraud risk of a ticket for all tickets in the all tickets list
 -- Bonus stories --
-P-1 12 As an admin I should be able to delete any comment and edit/delete any ticket 
++ P-1 12 As an admin I should be able to delete any comment and edit/delete any ticket 
 P-2 13 As a customer I want to be able to filter and search in the list of events
 P-2 14 As a customer I want to be able to sort the list of tickets on author and price 
 P-3 15 Use the Uber API to dispatch an Uber when you buy a ticket
@@ -124,21 +143,23 @@ P-3 17 As a customer I want to install this as an app on my phone
 
 Tests : 
 
-- Add user
+HERE>
 
-- Add event via admin
++ Add user
 
-- Add tickets to the event with different users
++ Add event via admin
 
-- Add comments to tickets with different users
++ Add tickets to the event with different users
 
-- Each user can only remove/edit its own ticket
++ Add comments to tickets with different users
 
-- Each user can only remove/edit its own comment
++ Each user can only remove/edit its own ticket
 
-- When ticket is gone, comments are gone
++ Each user can only remove/edit its own comment
 
-- When event is gone, tickets are gone, comments are also gone
++ When ticket is gone, comments are gone
+
++ When event is gone, tickets are gone, comments are also gone
 
 
 
@@ -162,8 +183,8 @@ Extra Ideas
 
 Final Checks
 
-- Remove all console.logs
-- Remove all warnings
++ Remove all console.logs
++ Remove all warnings
 - Check every single naming
 - Make sure all tests pass - on master branch
 - ReadMe

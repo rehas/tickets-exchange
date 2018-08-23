@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button} from '@material-ui/core/';
-import {signup} from '../actions/users'
+import {editTicket, deleteTicket} from '../actions/tickets'
 import {connect} from 'react-redux'
 
 const styles = theme => ({
@@ -21,9 +21,18 @@ const styles = theme => ({
   }
 });
 
-class SignUpForm extends PureComponent{
+class EditTicketForm extends PureComponent{
 
   state={}
+
+  componentDidMount(){
+    const {description, price, picture} = this.props.ticket
+    this.setState({
+      description,
+      price,
+      picture
+    })
+  }
 
   handleChange = (e) =>{
     this.setState({ [e.target.name]: e.target.value })
@@ -31,65 +40,59 @@ class SignUpForm extends PureComponent{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {email, password, fullName, isAdmin} = this.state
-    if (!(email && password && fullName)) return
-    this.props.signup(email, password, fullName, isAdmin )
+    const {description, picture, price} = this.state
+    // if ((title && picture && end)) return
+    this.props.editTicket(this.props.ticket.id, parseInt(price, 10), description, picture);
+  }
+
+  deleteTicket = async (e) =>{
+    await this.props.deleteTicket(this.props.ticket.id, this.props.ticket.event_id)
+    this.props.history.push(`/events/${this.props.ticket.event_id}`)
   }
   
 
   render(){
     return (
       <div className={this.props.classes.container} >
-      {!this.props.currentUserDetails &&
       <form onSubmit={this.handleSubmit}>
       <Input
       onChange={this.handleChange}
       label="None"
-      id="fullName"
+      id="description"
       type="text"
-      name="fullName"
-      defaultValue=""
+      name="description"
+      defaultValue={this.props.ticket.description}
       className={this.props.classes.textField}
-      placeholder="Full Name"
+      placeholder="Ticket Description"
       required ={true}
       />
       <Input
         onChange={this.handleChange}
         label="None"
-        id="email"
+        id="picture"
         type="text"
-        name="email"
-        defaultValue=""
+        name="picture"
+        defaultValue={this.props.ticket.picture}
         className={this.props.classes.textField}
-        placeholder="Email Address"
+        placeholder="Ticket Picture Link"
         required={true}
       />
       <Input
         onChange={this.handleChange}
         label="Dense"
-        type="password"
-        id="password"
-        name="password"
-        defaultValue=""
+        type="text"
+        id="price"
+        name="price"
+        defaultValue={this.props.ticket.price}
         className={this.props.classes.textField}
-        placeholder="Password"
+        placeholder="price"
         margin="dense"
         required={true}
       />
-      <Input
-        onChange={this.handleChange}
-        label="Dense"
-        type="password"
-        id="admin-password"
-        name="isAdmin"
-        defaultValue=""
-        className={this.props.classes.textField}
-        placeholder="Admin Key"
-        margin="dense"
-      />
-      <Button type="submit"> Create User</Button>
+      
+      <Button type="submit">Edit Ticket</Button>
       </form>
-      }
+      <Button onClick={this.deleteTicket} >Delete Ticket</Button>
     </div>
     )
   }
@@ -101,4 +104,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {signup})(withStyles(styles)(SignUpForm))
+export default connect(mapStateToProps, {editTicket, deleteTicket})(withStyles(styles)(EditTicketForm))

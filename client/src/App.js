@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
+import Events from './components/Events';
+import EventDetails from './components/EventDetails';
+import TicketDetails from './components/TicketDetails';
 
 class App extends Component {
   render() {
@@ -10,14 +12,15 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <LoginForm/>
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to Ebay For Tickets</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        
         <Router>
           <main>
-            Start  
+            <Route exact path='/' component={Events}/>
+            <Route exact path='/events/:eventid' component={EventDetails}/>
+            <Route exact path='/events/:eventid/tickets/:ticketid' component={TicketDetails}/>
+
           </main>
         </Router> 
       </div>

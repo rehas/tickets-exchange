@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Input, Button} from '@material-ui/core/';
-import {signup} from '../actions/users'
+import {addTicket} from '../actions/tickets'
 import {connect} from 'react-redux'
 
 const styles = theme => ({
@@ -21,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-class SignUpForm extends PureComponent{
+class AddTicketForm extends PureComponent{
 
   state={}
 
@@ -31,65 +31,59 @@ class SignUpForm extends PureComponent{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {email, password, fullName, isAdmin} = this.state
-    if (!(email && password && fullName)) return
-    this.props.signup(email, password, fullName, isAdmin )
+    const {description, picture, price} = this.state
+    const eventid = this.props.eventid
+    const userid = this.props.currentUserDetails.id
+    // if ((title && picture && end)) return
+    this.props.addTicket(eventid, userid, parseInt(price, 10), description, picture);
+    this.setState({})
+    e.target.description.value =''
+    e.target.picture.value =''
+    e.target.price.value =''
   }
   
 
   render(){
     return (
       <div className={this.props.classes.container} >
-      {!this.props.currentUserDetails &&
       <form onSubmit={this.handleSubmit}>
       <Input
       onChange={this.handleChange}
       label="None"
-      id="fullName"
+      id="description"
       type="text"
-      name="fullName"
+      name="description"
       defaultValue=""
       className={this.props.classes.textField}
-      placeholder="Full Name"
+      placeholder="Ticket Description"
       required ={true}
       />
       <Input
         onChange={this.handleChange}
         label="None"
-        id="email"
+        id="picture"
         type="text"
-        name="email"
+        name="picture"
         defaultValue=""
         className={this.props.classes.textField}
-        placeholder="Email Address"
+        placeholder="Ticket Picture Link"
         required={true}
       />
       <Input
         onChange={this.handleChange}
         label="Dense"
-        type="password"
-        id="password"
-        name="password"
+        type="text"
+        id="price"
+        name="price"
         defaultValue=""
         className={this.props.classes.textField}
-        placeholder="Password"
+        placeholder="price"
         margin="dense"
         required={true}
       />
-      <Input
-        onChange={this.handleChange}
-        label="Dense"
-        type="password"
-        id="admin-password"
-        name="isAdmin"
-        defaultValue=""
-        className={this.props.classes.textField}
-        placeholder="Admin Key"
-        margin="dense"
-      />
-      <Button type="submit"> Create User</Button>
+      
+      <Button type="submit">Add Ticket</Button>
       </form>
-      }
     </div>
     )
   }
@@ -101,4 +95,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {signup})(withStyles(styles)(SignUpForm))
+export default connect(mapStateToProps, {addTicket})(withStyles(styles)(AddTicketForm))

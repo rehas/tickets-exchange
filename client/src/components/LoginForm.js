@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Input, Button, FormGroup, FormControl} from '@material-ui/core/';
+import {Input, Button} from '@material-ui/core/';
 import {login, logout} from '../actions/users'
 import {connect} from 'react-redux'
 import SignUpForm from './SignUpForm';
@@ -30,12 +30,11 @@ class LoginForm extends PureComponent  {
     signup:false
   }
 
-  propTypes = {
+  static propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
   handleChange = (e) =>{
-    console.log(e.target.name)
     this.setState({ [e.target.name]: e.target.value })
   }
 

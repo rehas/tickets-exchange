@@ -16,9 +16,7 @@ export default class EventController {
       throw new UnauthorizedError("Only Admins Can Create Events")
     }
 
-    console.log("incoming post request to events")
     const entity = await Event.create(data)
-    console.log(entity)
 
     const event = await entity.save()
     return event
@@ -31,8 +29,6 @@ export default class EventController {
     @Param('id') id: number,
     @CurrentUser() user: User
   ){
-    console.log("incoming delete request to events")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 
@@ -55,8 +51,6 @@ export default class EventController {
     @CurrentUser() user:User,
     @Body() partialEvent: object
   ){
-    console.log("incoming edit request to events")
-    console.log(user)
 
     if(!user) throw new UnauthorizedError("Please Login")
 
@@ -79,12 +73,34 @@ export default class EventController {
   async getEvent(
     @Param('id') id: number
   ) {
-    return await Event.findOneById(id)
+
+    const event = await Event.findOneById(id, {relations:["tickets", "tickets.comments"]})
+
+    if(!event) throw new NotFoundError("Event Not Found")
+
+    const risks = await Promise.all( event.tickets.map(ticket=> ticket.calculateTicketRisk()))
+      .then(result=> result.map(item=>{return {ticId: item.ticket.id, risk : item.risk }}))
+      // .then(res=> console.log(res)) 
+
+    console.log({...event,
+      risks : risks
+      })
+
+    return {...event,
+            risks : risks
+            }
   }
 
   @HttpCode(200)
   @Get('/events')
   async allEvents() {
-    return await Event.find()
+    return await Event.find(
+      {
+        relations:["tickets", "tickets.comments"],
+        order: {
+          id: "DESC"
+        }
+      }
+    )
   }
 }

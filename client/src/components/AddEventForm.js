@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {Input, Button} from '@material-ui/core/';
-import {signup} from '../actions/users'
+import {Input, Button, InputLabel} from '@material-ui/core/';
+import {createEvent} from '../actions/events'
 import {connect} from 'react-redux'
 
 const styles = theme => ({
@@ -21,7 +21,7 @@ const styles = theme => ({
   }
 });
 
-class SignUpForm extends PureComponent{
+class AddEventForm extends PureComponent{
 
   state={}
 
@@ -31,65 +31,71 @@ class SignUpForm extends PureComponent{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {email, password, fullName, isAdmin} = this.state
-    if (!(email && password && fullName)) return
-    this.props.signup(email, password, fullName, isAdmin )
+    const {title, picture, start, end} = this.state
+    // if ((title && picture && end)) return
+    this.props.createEvent(title,picture, start, end);
+    this.setState({})
+    e.target.title.value =''
+    e.target.picture.value =''
+    e.target.start.value =''
+    e.target.end.value =''
   }
   
 
   render(){
     return (
       <div className={this.props.classes.container} >
-      {!this.props.currentUserDetails &&
       <form onSubmit={this.handleSubmit}>
       <Input
       onChange={this.handleChange}
       label="None"
-      id="fullName"
+      id="title"
       type="text"
-      name="fullName"
+      name="title"
       defaultValue=""
       className={this.props.classes.textField}
-      placeholder="Full Name"
+      placeholder="Event Title"
       required ={true}
       />
       <Input
         onChange={this.handleChange}
         label="None"
-        id="email"
+        id="picture"
         type="text"
-        name="email"
+        name="picture"
         defaultValue=""
         className={this.props.classes.textField}
-        placeholder="Email Address"
+        placeholder="Event Picture Link"
         required={true}
       />
+      <InputLabel> Start Date</InputLabel>
       <Input
         onChange={this.handleChange}
         label="Dense"
-        type="password"
-        id="password"
-        name="password"
+        type="date"
+        id="start"
+        name="start"
         defaultValue=""
         className={this.props.classes.textField}
-        placeholder="Password"
+        placeholder="start date eg. 2018-08-30"
         margin="dense"
         required={true}
       />
+      <InputLabel> End Date</InputLabel>
       <Input
         onChange={this.handleChange}
         label="Dense"
-        type="password"
-        id="admin-password"
-        name="isAdmin"
+        type="date"
+        id="end"
+        name="end"
         defaultValue=""
         className={this.props.classes.textField}
-        placeholder="Admin Key"
+        placeholder="end date eg. 2019-08-30"
         margin="dense"
+        required={true}
       />
-      <Button type="submit"> Create User</Button>
+      <Button type="submit"> Create Event</Button>
       </form>
-      }
     </div>
     )
   }
@@ -101,4 +107,4 @@ const mapStateToProps = state =>{
   }
 }
 
-export default connect(mapStateToProps, {signup})(withStyles(styles)(SignUpForm))
+export default connect(mapStateToProps, {createEvent})(withStyles(styles)(AddEventForm))
