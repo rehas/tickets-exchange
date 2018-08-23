@@ -114,9 +114,9 @@ PHASE 1
 ----------------------------------------------------------------------------------------------------
 EXTRAS
 
-    - Setup navigation buttons
-      - Setup Home, Button on Header to go back home anytime
-      - Setup Event Details button to appear when on ticket details
+    + Setup navigation buttons
+      + Setup Home, Button on Header to go back home anytime
+      + Setup Event Details button to appear when on ticket details
       - commit to different branch
     + Event search box
       + Put an input box and filter out in the front end
@@ -124,7 +124,7 @@ EXTRAS
       + commit to a different branch
     - Clear unnecessary api endpoints.
       - definitely commit to a different branch 
-    - Adjust Fonts
+    HERE> Adjust Fonts
     - Adjust Spacing for forms
       - commit to a different branch
     - Adjust spacing for grids
