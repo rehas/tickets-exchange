@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvent} from '../actions/events'
 import { Link } from 'react-router-dom'
+import * as request from 'superagent'
+import { baseUrl } from '../constants';
 
 
 const styles = theme => ({
@@ -49,6 +51,19 @@ class EventDetails extends PureComponent  {
   }
 
   render(){
+
+    // const riskArray = []
+
+    // this.props.event &&
+
+    // Promise.all(
+    // this.props.event.tickets.map(ticket=>{
+    //   return request
+    //     .get(`${baseUrl}/tickets/${ticket.id}/risk`)
+    // })
+    // ).then(responses=> responses.map(response=>riskArray.push(response.body)))
+    
+
     return (<div>{
       this.props.event &&
     
@@ -59,7 +74,8 @@ class EventDetails extends PureComponent  {
             <TableCell>Name</TableCell>
             <TableCell >Description</TableCell>
             <TableCell numeric>Price</TableCell>
-            <TableCell numeric>Risk</TableCell>
+            {/* <TableCell numeric>Risk</TableCell> */}
+            <TableCell numeric>Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -72,7 +88,7 @@ class EventDetails extends PureComponent  {
                 </TableCell>
                 <TableCell >{ticket.description}</TableCell>
                 <TableCell numeric>{ticket.price}</TableCell>
-                <TableCell numeric>{ticket.risk}</TableCell>
+                {/* <TableCell numeric>{riskArray.length > 0 && riskArray.filter(risk=> risk.ticket.id === ticket.id)[0].risk}</TableCell> */}
                 <TableCell >
                   <Link to={`/tickets/${ticket.id}`}>
                   Ticket Details
