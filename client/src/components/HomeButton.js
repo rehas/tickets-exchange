@@ -13,12 +13,12 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 150,
+    display: 'inline-block',
+    backgroundColor : 'white',
     // color: 'white',
     // backgroundColor: 'white'
   },
-  currentUser:{
-    color: 'black'
-  }
+  
 });
 
 
@@ -28,9 +28,9 @@ class HomeButton extends PureComponent  {
   }
   render(){
     return(
-      <div className={this.props.classes.container}>
-      <Button onClick={this.clickHandler}>Home</Button>
-      </div>
+      <span>
+      <Button color="primary" className={this.props.classes.textField} onClick={this.clickHandler}>Home</Button>
+      </span>
     )
   }
 };

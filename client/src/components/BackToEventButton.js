@@ -13,6 +13,9 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 150,
+    display: 'inline-block',
+    backgroundColor : 'white',
+    // marginLeft: '-200px'
     // color: 'white',
     // backgroundColor: 'white'
   },
@@ -30,11 +33,9 @@ class BackToEventButton extends PureComponent {
   }
   render(){
     return(
-      <div className={this.props.classes.container}>
-      
-      <Button onClick={this.clickHandler}>EventDetails</Button>
-      </div>
-
+      <span>
+      <Button className={this.props.classes.textField} onClick={this.clickHandler}>EventDetails</Button>
+      </span>
     )
   }
 };

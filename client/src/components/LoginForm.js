@@ -38,6 +38,8 @@ class LoginForm extends PureComponent  {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  
+
   handleSubmit = (e) => {
     e.preventDefault();
     const {email, password} = this.state
@@ -49,6 +51,7 @@ class LoginForm extends PureComponent  {
     this.setState({signup:false})
     this.props.logout()
   }
+
 
 
   render(){
@@ -99,13 +102,17 @@ class LoginForm extends PureComponent  {
         // onClick={this.handleSubmit}
       > Login</Button>
       </form>
-      <Button onClick={(e) => this.setState({signup: !this.state.signup})}>SignUP</Button>
+      <Button onClick={(e) => this.setState({signup: !this.state.signup})}>Sign UP</Button>
       </div>
       }
       <div>
       {this.state.signup && 
-      
+      <span>      
       <SignUpForm/>
+      {!this.props.currentUserDetails &&
+        <Button onClick={(e) => this.setState({signup: !this.state.signup})}>Cancel</Button>
+      }
+      </span>
       }
       </div>
       
