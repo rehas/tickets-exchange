@@ -1,5 +1,5 @@
 import React,{PureComponent} from 'react';
-import {Grid, Button} from '@material-ui/core'
+import {Grid, Button, Typography} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvents} from '../actions/events'
@@ -70,9 +70,11 @@ class Events extends PureComponent  {
             .map(event => <EventBox key={event.id} data={event} />)
           }
         </Grid>
-        <Button onClick={this.previous} >Previous</Button>
-        {this.state.currentPage}
-        <Button onClick={this.next}>Next</Button>
+        <Typography color="textSecondary" variant="display2"> 
+        <Button size="large" color="primary" onClick={this.previous} >Previous</Button>
+          {this.state.currentPage}
+        <Button size="large" color="primary" onClick={this.next}>Next</Button>
+        </Typography>
         <hr/>
         {this.props.currentUser && this.props.currentUser.isAdmin && 
         <AddEventForm/>
