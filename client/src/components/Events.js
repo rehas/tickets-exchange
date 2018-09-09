@@ -1,11 +1,11 @@
 import React,{PureComponent} from 'react';
-import {Grid, Button, Typography} from '@material-ui/core'
+import { Button, Typography} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvents} from '../actions/events'
 import EventBox from './EventBox';
 import AddEventForm from './AddEventForm';
-
+import {Grid, Row} from 'react-flexbox-grid/lib';
 
 const styles = theme => ({
   container: {
@@ -22,12 +22,7 @@ const styles = theme => ({
   },
   currentUser:{
     color: 'black'
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+  }
 });
 
 class Events extends PureComponent  {
@@ -64,11 +59,13 @@ class Events extends PureComponent  {
     
     return (
       <div>
-        <Grid container spacing={24} className={this.props.classes.paper} >
+        <Grid fluid  >
+          <Row>
           {this.props.events
             .slice(start, end)
-            .map(event => <EventBox key={event.id} data={event} />)
+            .map((event, i) => <EventBox key={event.id} data={event} />)
           }
+          </Row>
         </Grid>
         <Typography color="textSecondary" variant="display2"> 
         <Button size="large" color="primary" onClick={this.previous} >Previous</Button>

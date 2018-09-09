@@ -1,65 +1,47 @@
 import React,{PureComponent} from 'react';
-import {Grid, Typography} from '@material-ui/core'
+import {Typography, Card, CardHeader, CardMedia, CardContent} from '@material-ui/core'
 import {connect} from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import {getEvents} from '../actions/events'
 import { Link } from 'react-router-dom'
+import {Col} from 'react-flexbox-grid/lib';
 
 const styles = theme => ({
-  container: {
-    display: 'block',
-    flexWrap: 'wrap',
-    backgroundColor: 'white',
-    marginTop: '50px'
+  link: {
+    textDecorationLine: 'none'
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 150,
-    // color: 'white',
-    // backgroundColor: 'white'
-  },
-  paper: {
-    padding: theme.spacing.unit * 3,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    marginTop : '50px'
-
-  },
-  img:{
-    width: '300px',
+  media:{
     height: '300px',
-    borderRadius: '25px'
+    width: '75%',
+    margin: 'auto'
   },
-  currentUser:{
-    color: 'black'
-  },
-  dates:{
-    textDecoration : 'none'
-  },
-  btn:{
-    fontSize: '20px',
-    textDecoration: 'none',
-    fontFamily: 'verdana',
-    border: 1,
-    color: 'primary',
-
+  card:{
+    padding: theme.spacing.unit*3,
+    marginTop : '50px',
   }
 });
 
 class EventBox extends PureComponent  {
   render(){
     return (
-      <Grid id="eventbox" item className={this.props.classes.paper} md={6}>
-        <Link to={`/Events/${this.props.data.id}`}>
-        <Typography 
-          variant="headline" color="primary" paragraph
-        > {this.props.data.title}</Typography>
-        <img id="imagebox" src={this.props.data.picture} alt="" className={this.props.classes.img}/>
-        <Typography className={this.props.classes.btn}> start : {this.props.data.start} </Typography>
-        <Typography className={this.props.classes.btn}> end : {this.props.data.end} </Typography>
+      <Col type="col" lg={6} id="eventbox" item md={6}>
+        <Link className={this.props.classes.link} to={`/Events/${this.props.data.id}`}>
+        <Card className={this.props.classes.card}>
+        <CardHeader
+          title={this.props.data.title}
+        />
+        <CardMedia
+          className={this.props.classes.media}
+          image={this.props.data.picture}
+          src={this.props.data.picture}
+        />
+        <CardContent>
+          <Typography paragraph variant="body1"> start : {this.props.data.start} </Typography>
+          <Typography paragraph variant="body1"> end   :   {this.props.data.end} </Typography>
+        </CardContent>
+        </Card>
         </Link>
-      </Grid>
+      </Col>
     )
   }
 }
