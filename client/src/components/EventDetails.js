@@ -26,8 +26,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 150,
-    // color: 'white',
-    // backgroundColor: 'white'
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -51,8 +49,6 @@ class EventDetails extends PureComponent  {
   }
 
   deleteEvent = () =>{
-    // dispatch delete action for event
-    // route back to main page
     this.props.deleteEvent(this.props.match.params.eventid)
     this.props.history.push('/')
   }

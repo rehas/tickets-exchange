@@ -5,10 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import {getEvents} from '../actions/events'
 import { Link } from 'react-router-dom'
 import {Col} from 'react-flexbox-grid/lib';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const styles = theme => ({
   link: {
-    textDecorationLine: 'none'
+    textDecorationLine: 'none',
   },
   media:{
     height: '300px',
@@ -16,30 +17,41 @@ const styles = theme => ({
     margin: 'auto'
   },
   card:{
-    padding: theme.spacing.unit*3,
-    marginTop : '50px',
+    padding: theme.spacing.unit,
+    marginTop : '40px',
+    backgroundColor: blueGrey[100],
+  },
+  cardcontent:{
+    fontSize : '20px',
+  },
+  content:{
+    fontFamily: 'verdana'
   }
 });
 
 class EventBox extends PureComponent  {
   render(){
+    const myclasses = this.props.classes
     return (
-      <Col type="col" lg={6} id="eventbox" item md={6}>
-        <Link className={this.props.classes.link} to={`/Events/${this.props.data.id}`}>
-        <Card className={this.props.classes.card}>
-        <CardHeader
-          title={this.props.data.title}
-        />
-        <CardMedia
-          className={this.props.classes.media}
-          image={this.props.data.picture}
-          src={this.props.data.picture}
-        />
-        <CardContent>
-          <Typography paragraph variant="body1"> start : {this.props.data.start} </Typography>
-          <Typography paragraph variant="body1"> end   :   {this.props.data.end} </Typography>
-        </CardContent>
-        </Card>
+      <Col type="col" lg={5} id="eventbox" item md={6}>
+        <Link className={myclasses.link} to={`/Events/${this.props.data.id}`}>
+          <Card className={myclasses.card}>
+            <CardHeader
+              title={this.props.data.title}
+            />
+            <CardMedia
+              className={myclasses.media}
+              image={this.props.data.picture}
+              src={this.props.data.picture}
+            />
+            <CardContent >
+              <Typography className={`${myclasses.cardcontent} ${myclasses.content}` }>
+                start : {this.props.data.start}
+                - - 
+                end   : {this.props.data.end}
+              </Typography>
+            </CardContent>
+          </Card>
         </Link>
       </Col>
     )

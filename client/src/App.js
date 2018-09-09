@@ -23,7 +23,6 @@ const theme = createMuiTheme({
       dark: colors.green[700],
     },
   },
-  
 });
 
 class App extends Component {
@@ -38,7 +37,7 @@ class App extends Component {
             <h1 className="App-title">Welcome to Ebay For Tickets</h1>
             <Route exact path='/' component={SearchBox}/>
           </header>
-            <main>
+            <main className={theme.root}>
               <Route exact path='/' component={Events}/>
               <Route exact path='/events/:eventid' component={EventDetails}/>
               <Route exact path='/events/:eventid/tickets/:ticketid' component={TicketDetails}/>

@@ -8,20 +8,10 @@ import AddEventForm from './AddEventForm';
 import {Grid, Row} from 'react-flexbox-grid/lib';
 
 const styles = theme => ({
-  container: {
-    display: 'block',
-    flexWrap: 'wrap',
-    backgroundColor: 'white'
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 150,
-    // color: 'white',
-    // backgroundColor: 'white'
-  },
-  currentUser:{
-    color: 'black'
+  events: {
+    paddingTop : '40px',
+    marginBottom: '40px',
+    fontFamily: 'Verdana'
   }
 });
 
@@ -47,11 +37,6 @@ class Events extends PureComponent  {
     }
   }
 
-  addEvent = () =>{
-    // toggle show add event form
-    
-  }
-
   render(){
 
     const start = (this.state.currentPage -1) *4
@@ -59,22 +44,22 @@ class Events extends PureComponent  {
     
     return (
       <div>
-        <Grid fluid  >
-          <Row>
-          {this.props.events
-            .slice(start, end)
-            .map((event, i) => <EventBox key={event.id} data={event} />)
-          }
+        <Grid fluid className={this.props.classes.events}>
+          <Row around="lg">
+            {this.props.events
+              .slice(start, end)
+              .map((event, i) => <EventBox key={event.id} data={event}/> )
+            }
           </Row>
         </Grid>
         <Typography color="textSecondary" variant="display2"> 
-        <Button size="large" color="primary" onClick={this.previous} >Previous</Button>
-          {this.state.currentPage}
-        <Button size="large" color="primary" onClick={this.next}>Next</Button>
+          <Button size="large" color="secondary" onClick={this.previous} >Previous</Button>
+            {this.state.currentPage}
+          <Button size="large" color="secondary" onClick={this.next}>Next</Button>
         </Typography>
         <hr/>
         {this.props.currentUser && this.props.currentUser.isAdmin && 
-        <AddEventForm/>
+          <AddEventForm/>
         }
       </div>
     )
@@ -87,6 +72,5 @@ const mapStateToProps = state =>{
     currentUser: state.currentUserDetails
   }
 }
-
 
 export default connect(mapStateToProps, {getEvents})(withStyles(styles)(Events));
