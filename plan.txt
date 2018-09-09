@@ -207,7 +207,7 @@ Final Checks
 + Remove all warnings
 - Check every single naming
 - Make sure all tests pass - on master branch
-- ReadMe
++ ReadMe
   - DB instructions
   - installation instructions
   - check to master
