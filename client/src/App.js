@@ -8,35 +8,55 @@ import TicketDetails from './components/TicketDetails';
 import SearchBox from './components/SearchBox';
 import HomeButton from './components/HomeButton';
 import BackToEventButton from './components/BackToEventButton';
-import { MuiThemeProvider, createMuiTheme, colors } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme, colors, AppBar, Typography } from '@material-ui/core';
+import Grid from 'react-flexbox-grid/lib/components/Grid';
+import { Row } from 'react-flexbox-grid/lib';
+import { Col } from 'react-flexbox-grid';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: colors.purple[300],
-      main: colors.purple[500],
-      dark: colors.purple[700],
+      light: colors.blue[200],
+      main: colors.blue[400],
+      dark: colors.blue[700],
     },
     secondary: {
       light: colors.green[300],
       main: colors.green[500],
       dark: colors.green[700],
     },
-  },
+  }
 });
+
 
 class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-          <header className="App-header">
-            <Route component={HomeButton}/>
-            <Route exact path='/events/:eventid/tickets/:ticketid' component={BackToEventButton}/>
-            <LoginForm/>
-            <h1 className="App-title">Welcome to Ebay For Tickets</h1>
-            <Route exact path='/' component={SearchBox}/>
-          </header>
+          <AppBar position="static">
+            <Grid fluid>
+              <Row between='lg' middle='lg'>
+                <Col lg={1}>
+                  <Route component={HomeButton}/>
+                </Col>
+                <Col lg={1}>
+                  <Route exact path='/events/:eventid/tickets/:ticketid' component={BackToEventButton}/>
+                </Col>
+                <Col lg={2}>
+                  <Typography /* className={classes.title} */ variant="title" color="inherit" noWrap>
+                   Welcome to Ebay For Tickets
+                  </Typography>
+                </Col>
+                <Col lg={3}>
+                  <Route exact path='/' component={SearchBox}/>
+                </Col>
+                <Col lg={3}>
+                  <LoginForm/>
+                </Col>
+            </Row>
+            </Grid>
+          </AppBar>
             <main className={theme.root}>
               <Route exact path='/' component={Events}/>
               <Route exact path='/events/:eventid' component={EventDetails}/>

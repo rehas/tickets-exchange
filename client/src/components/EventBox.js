@@ -25,8 +25,9 @@ const styles = theme => ({
     fontSize : '20px',
   },
   content:{
-    fontFamily: 'verdana'
-  }
+    fontFamily: 'verdana',
+  },
+
 });
 
 class EventBox extends PureComponent  {
@@ -38,6 +39,8 @@ class EventBox extends PureComponent  {
           <Card className={myclasses.card}>
             <CardHeader
               title={this.props.data.title}
+              classes={{title:myclasses.content}}
+              color="danger"
             />
             <CardMedia
               className={myclasses.media}

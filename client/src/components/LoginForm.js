@@ -7,10 +7,10 @@ import {connect} from 'react-redux'
 import SignUpForm from './SignUpForm';
 
 const styles = theme => ({
-  container: {
-    display: 'block',
+  loginform: {
+    // display: 'block',
     flexWrap: 'wrap',
-    backgroundColor: 'white'
+    // backgroundColor: 'white'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -57,7 +57,7 @@ class LoginForm extends PureComponent  {
   render(){
 
   return (
-    <div className={this.props.classes.container}>
+    <div className={this.props.classes.loginform}>
       {this.props.currentUserDetails && 
       <p className={this.props.classes.currentUser}> 
         {this.props.currentUserDetails.fullName} Logged In
