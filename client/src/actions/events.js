@@ -1,6 +1,10 @@
 import * as request from 'superagent'
 import {baseUrl} from '../constants'
 
+console.log("events actions")
+console.log(process)
+console.log(process.env)
+
 export const GET_EVENTS = 'GET_EVENTS'
 export const GET_SINGLE_EVENT = 'GET_SINGLE_EVENT'
 export const FILTER_EVENTS = 'FILTER_EVENTS'
@@ -19,6 +23,12 @@ export const getEvents = () => (dispatch) =>{
   const day = date.getDate()
 
   const today = year + '-' + month + '-' + day 
+
+  console.log("events actions")
+  console.log(process)
+  console.log(process.env)
+  console.log(baseUrl)
+
 
   request
     .get(`${baseUrl}/events`)
