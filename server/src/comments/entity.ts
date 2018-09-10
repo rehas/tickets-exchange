@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Timestamp, ManyToOne } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Timestamp, ManyToOne, JoinColumn } from 'typeorm'
 import { IsString} from 'class-validator';
 // import Event from '../events/entity';
 import User from '../users/entity';
@@ -24,6 +24,7 @@ export default class Comment extends BaseEntity {
   ticket_id: number
 
   @ManyToOne(_=>User, user=> user.comments, {onDelete:"CASCADE"})
+  @JoinColumn({name: 'user_id'})
   user: User
 
   @ManyToOne(_=> Ticket, ticket=> ticket.comments, {onDelete:"CASCADE"})
