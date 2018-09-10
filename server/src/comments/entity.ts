@@ -28,6 +28,7 @@ export default class Comment extends BaseEntity {
   user: User
 
   @ManyToOne(_=> Ticket, ticket=> ticket.comments, {onDelete:"CASCADE"})
+  @JoinColumn({name: 'ticket_id'})
   ticket: Ticket
 
 
