@@ -16,19 +16,12 @@ const getEventsSuccess = (events) => ({
 
 export const getEvents = () => (dispatch) =>{
 
-  // filter only unfinished events
   const date = new Date()
   const year = date.getFullYear()
   const month = date.getMonth() < 10 ? '0'+( date.getMonth() +1) : (date.getMonth() +1)
   const day = date.getDate()
 
   const today = year + '-' + month + '-' + day 
-
-  console.log("events actions")
-  console.log(process)
-  console.log(process.env)
-  console.log(baseUrl)
-
 
   request
     .get(`${baseUrl}/events`)
