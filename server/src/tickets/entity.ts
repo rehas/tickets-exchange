@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Timestamp, ManyToOne } from 'typeorm'
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, Timestamp, ManyToOne, JoinColumn } from 'typeorm'
 // import { Exclude } from 'class-transformer';
 import { IsString, IsNumber } from 'class-validator';
 import Event from '../events/entity';
@@ -38,9 +38,11 @@ export default class Ticket extends BaseEntity {
   user_id: number
 
   @ManyToOne(_=>Event, event=> event.tickets, {onDelete:"CASCADE"})
+  @JoinColumn({name: 'event_id'})
   event: Event;
 
   @ManyToOne(_=> User, user=> user.tickets, {onDelete:"CASCADE"})
+  @JoinColumn({name: 'user_id'})
   user: User
 
   @OneToMany(_=> Comment, comment => comment.ticket)
